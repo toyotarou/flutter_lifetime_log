@@ -14,7 +14,8 @@ holidayProvider       Holiday
 
 ////////////////////////////////////////////////
 
-final holidayProvider = StateNotifierProvider.autoDispose<HolidayNotifier, Holiday>((ref) {
+final holidayProvider =
+    StateNotifierProvider.autoDispose<HolidayNotifier, Holiday>((ref) {
   final client = ref.read(httpClientProvider);
 
   final utility = Utility();
@@ -37,9 +38,14 @@ class HolidayNotifier extends StateNotifier<Holiday> {
       }
 
       state = Holiday(data: list);
-    }).catchError((error, _) {
-      utility.showError('予期せぬエラーが発生しました');
     });
+
+
+
+    //
+    //     .catchError((error, _) {
+    //   utility.showError('予期せぬエラーが発生しました');
+    // });
   }
 }
 

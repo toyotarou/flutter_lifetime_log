@@ -1,5 +1,5 @@
-class Lifetime {
-  Lifetime({
+class LifetimeModel {
+  LifetimeModel({
     required this.id,
     required this.year,
     required this.month,
@@ -30,7 +30,7 @@ class Lifetime {
     required this.hour23,
   });
 
-  factory Lifetime.fromJson(Map<String, dynamic> json) => Lifetime(
+  factory LifetimeModel.fromJson(Map<String, dynamic> json) => LifetimeModel(
         id: json['id'],
         year: json['year'],
         month: json['month'],
@@ -89,7 +89,7 @@ class Lifetime {
   final String hour22;
   final String hour23;
 
-  Lifetime copyWith({
+  LifetimeModel copyWith({
     int? id,
     String? year,
     String? month,
@@ -119,7 +119,7 @@ class Lifetime {
     String? hour22,
     String? hour23,
   }) =>
-      Lifetime(
+      LifetimeModel(
         id: id ?? this.id,
         year: year ?? this.year,
         month: month ?? this.month,

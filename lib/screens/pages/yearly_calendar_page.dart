@@ -1,26 +1,12 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// import 'package:moneynote4/screens/_components/lifetime_record_block_display_alert.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../extensions/extensions.dart';
 import '../../state/holiday/holiday_notifier.dart';
 import '../../utility/utility.dart';
-
-//
-// import '../../../extensions/extensions.dart';
-// import '../../../models/lifetime.dart';
-// import '../../../state/app_param/app_param_notifier.dart';
-// import '../../../state/holiday/holiday_notifier.dart';
-// import '../../../state/lifetime/lifetime_notifier.dart';
-// import '../../../utility/utility.dart';
-// import '../_money_dialog.dart';
-// import '../lifetime_record_display_alert.dart';
-//
-//
+import '../components/_lifetime_dialog.dart';
+import '../daily_lifetime_screen.dart';
 
 // ignore: must_be_immutable
 class YearlyCalendarPage extends ConsumerWidget {
@@ -30,17 +16,23 @@ class YearlyCalendarPage extends ConsumerWidget {
 
   DateTime yearFirst = DateTime.now();
 
-  List<String> youbiList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  List<String> youbiList = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ];
 
   List<String> days = [];
 
   final Utility _utility = Utility();
 
-  //
-  // // 2023.11.22 AsyncValueを使用してみた
-  // AsyncValue<Map<String, Lifetime>> lifetimeMap = const AsyncValue.data({});
-  //
   final autoScrollController = AutoScrollController();
+
+  List<GlobalKey> globalKeyList = [];
 
   late BuildContext _context;
   late WidgetRef _ref;
@@ -51,24 +43,22 @@ class YearlyCalendarPage extends ConsumerWidget {
     _context = context;
     _ref = ref;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final diffDays = DateTime.now().difference(DateTime(DateTime.now().year)).inDays;
-      final index = (diffDays / 7).floor() + 10;
+    globalKeyList = List.generate(100, (index) => GlobalKey());
 
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (date.year == DateTime.now().year) {
-        await autoScrollController.scrollToIndex(index);
+        final diffDays =
+            DateTime.now().difference(DateTime(DateTime.now().year)).inDays;
+        final index = (diffDays / 7).floor();
+
+        final target = globalKeyList[index].currentContext!;
+
+        await Scrollable.ensureVisible(
+          target,
+          duration: const Duration(milliseconds: 1000),
+        );
       }
     });
-
-    //
-    //
-    // ref.read((lifetimeNotifierProvider as ProviderListenable).notifier);
-    //
-    //
-    // final lifetimeState = ref.watch(lifetimeNotifierProvider as ProviderListenable);
-    //
-    //
-    //
 
     return AlertDialog(
       titlePadding: EdgeInsets.zero,
@@ -86,23 +76,6 @@ class YearlyCalendarPage extends ConsumerWidget {
             children: [
               const SizedBox(height: 20),
               Container(width: context.screenSize.width),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Container(),
-              //     // IconButton(
-              //     //   onPressed: () {
-              //     //     _ref.read(lifetimeYearlyProvider(date).notifier).getYearlyLifetime(date: date);
-              //     //
-              //     //     MoneyDialog(
-              //     //       context: context,
-              //     //       widget: LifetimeRecordBlockDisplayAlert(date: date),
-              //     //     );
-              //     //   },
-              //     //   icon: const Icon(Icons.calendar_view_month_rounded, size: 14),
-              //     // ),
-              //   ],
-              // ),
               Expanded(child: _getCalendar()),
               const SizedBox(height: 10),
             ],
@@ -114,11 +87,6 @@ class YearlyCalendarPage extends ConsumerWidget {
 
   ///
   Widget _getCalendar() {
-    // lifetimeMap = _ref.watch(lifetimeYearlyProvider(date).select((value) => value.lifetimeMap));
-    //
-    //
-    //
-
     yearFirst = DateTime(date.yyyy.toInt());
 
     final yearEnd = DateTime(yearFirst.year + 1, 1, 0);
@@ -148,7 +116,8 @@ class YearlyCalendarPage extends ConsumerWidget {
       list.add(_getRow(days: days, rowNum: i));
     }
 
-    return SingleChildScrollView(controller: autoScrollController, child: Column(children: list));
+    return SingleChildScrollView(
+        controller: autoScrollController, child: Column(children: list));
   }
 
   ///
@@ -164,16 +133,20 @@ class YearlyCalendarPage extends ConsumerWidget {
               ? Container()
               : GestureDetector(
                   onTap: () async {
-                    // await _ref
-                    //     .watch(appParamProvider.notifier)
-                    //     .setSelectedYearlyCalendarDate(date: DateTime.parse('${date.yyyy}-${days[i]}'));
-                    //
-                    // if (_context.mounted) {
-                    //   await MoneyDialog(
-                    //     context: _context,
-                    //     widget: LifetimeRecordDisplayAlert(date: DateTime.parse('${date.yyyy}-${days[i]}')),
-                    //   );
-                    // }
+                    // await _ref.read(lifetimeProvider.notifier).getDailyLifetime(
+                    //       date: DateTime.parse(
+                    //         '${date.yyyy}-${days[i]} 00:00:00',
+                    //       ),
+                    //     );
+
+                    await LifetimeDialog(
+                      context: _context,
+                      widget: DailyLifetimeScreen(
+                        date: DateTime.parse(
+                          '${date.yyyy}-${days[i]} 00:00:00',
+                        ),
+                      ),
+                    );
                   },
                   child: Container(
                     margin: const EdgeInsets.all(3),
@@ -186,12 +159,15 @@ class YearlyCalendarPage extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ConstrainedBox(
-                          constraints: BoxConstraints(minHeight: _context.screenSize.height / 40),
+                          constraints: BoxConstraints(
+                              minHeight: _context.screenSize.height / 40),
                           child: Text(
                             (exDays[1] == '01') ? exDays[0] : days[i],
                             style: TextStyle(
                               fontSize: (exDays[1] == '01') ? 12 : 8,
-                              color: (exDays[1] == '01') ? const Color(0xFFFBB6CE) : Colors.white,
+                              color: (exDays[1] == '01')
+                                  ? const Color(0xFFFBB6CE)
+                                  : Colors.white,
                             ),
                           ),
                         ),
@@ -199,7 +175,6 @@ class YearlyCalendarPage extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             _dispRowNum(mmdd: days[i], rowNum: rowNum),
-//                            _dispDataExistsMark(mmdd: days[i]),
                             Container(),
                           ],
                         ),
@@ -211,14 +186,10 @@ class YearlyCalendarPage extends ConsumerWidget {
       );
     }
 
-    return AutoScrollTag(
-      key: ValueKey(rowNum),
-      index: rowNum,
-      controller: autoScrollController,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: list,
-      ),
+    return Row(
+      key: globalKeyList[rowNum],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: list,
     );
   }
 
@@ -241,7 +212,8 @@ class YearlyCalendarPage extends ConsumerWidget {
 
     final genDate = DateTime.parse('${date.yyyy}-$mmdd');
 
-    return _utility.getYoubiColor(date: genDate, youbiStr: genDate.youbiStr, holiday: holidayState.data);
+    return _utility.getYoubiColor(
+        date: genDate, youbiStr: genDate.youbiStr, holiday: holidayState.data);
   }
 
   ///
@@ -252,31 +224,10 @@ class YearlyCalendarPage extends ConsumerWidget {
       (genDate.youbiStr == 'Sunday') ? (rowNum + 1).toString() : '',
       style: TextStyle(
         fontSize: 10,
-        color: (genDate.youbiStr == 'Sunday') ? Colors.white.withOpacity(0.6) : Colors.transparent,
+        color: (genDate.youbiStr == 'Sunday')
+            ? Colors.white.withOpacity(0.6)
+            : Colors.transparent,
       ),
     );
   }
-
-/*
-
-  ///
-  Widget _dispDataExistsMark({required String mmdd}) {
-    // 2023.11.22 AsyncValueを使用してみた
-    return lifetimeMap.when(
-      data: (value) {
-        if (value['${date.yyyy}-$mmdd'] != null) {
-          return Icon(Icons.star, color: Colors.yellowAccent.withOpacity(0.4), size: 8);
-        }
-
-        return Container();
-      },
-      error: (error, stackTrace) => Container(),
-      loading: Container.new,
-
-      // サンプルでは下記のように書いてあった
-      // error: (error, stackTrace) => const Scaffold(body: Center(child: CircularProgressIndicator())),
-      // loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
-    );
-  }
-  */
 }
