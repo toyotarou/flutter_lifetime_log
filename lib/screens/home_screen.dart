@@ -165,7 +165,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               ],
                               const SizedBox(width: 10),
                               Container(
-                                width: context.screenSize.width / 12,
+                                width: context.screenSize.width / 15,
                                 alignment: Alignment.topRight,
                                 child: Text(
                                   (e + 1).toString().padLeft(2, '0'),
