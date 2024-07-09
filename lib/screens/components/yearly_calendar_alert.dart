@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lifetime_log/screens/parts/colored_tabbar.dart';
 
-import 'pages/yearly_calendar_page.dart';
+import '../pages/yearly_calendar_page.dart';
 
 class TabInfo {
   TabInfo(this.label, this.widget);
