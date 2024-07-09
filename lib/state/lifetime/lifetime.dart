@@ -15,8 +15,8 @@ part 'lifetime.g.dart';
 class LifetimeState with _$LifetimeState {
   const factory LifetimeState({
     LifetimeModel? lifetime,
-    @Default([]) List<Lifetime> lifetimeList,
-    @Default({}) Map<String, Lifetime> lifetimeMap,
+    @Default([]) List<LifetimeModel> lifetimeList,
+    @Default({}) Map<String, LifetimeModel> lifetimeMap,
     @Default([]) List<LifetimeItemModel> lifetimeItemList,
   }) = _LifetimeState;
 }
@@ -47,6 +47,29 @@ class Lifetime extends _$Lifetime {
       }
 
       state = state.copyWith(lifetimeItemList: list);
+    }).catchError((error, _) {
+      utility.showError('予期せぬエラーが発生しました');
+    });
+  }
+
+  ///
+  Future<void> getAllLifetimeRecord() async {
+    final client = ref.read(httpClientProvider);
+
+    await client.post(path: APIPath.getAllLifetimeRecord).then((value) {
+      final map = <String, LifetimeModel>{};
+
+      // ignore: avoid_dynamic_calls
+      for (var i = 0; i < value['data'].length.toString().toInt(); i++) {
+        final model = LifetimeModel.fromJson(
+          // ignore: avoid_dynamic_calls
+          value['data'][i] as Map<String, dynamic>,
+        );
+
+        map['${model.year}-${model.month}-${model.day}'] = model;
+      }
+
+      state = state.copyWith(lifetimeMap: map);
     }).catchError((error, _) {
       utility.showError('予期せぬエラーが発生しました');
     });

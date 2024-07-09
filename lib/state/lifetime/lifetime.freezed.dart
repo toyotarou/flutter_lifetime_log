@@ -17,8 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LifetimeState {
   LifetimeModel? get lifetime => throw _privateConstructorUsedError;
-  List<Lifetime> get lifetimeList => throw _privateConstructorUsedError;
-  Map<String, Lifetime> get lifetimeMap => throw _privateConstructorUsedError;
+  List<LifetimeModel> get lifetimeList => throw _privateConstructorUsedError;
+  Map<String, LifetimeModel> get lifetimeMap =>
+      throw _privateConstructorUsedError;
   List<LifetimeItemModel> get lifetimeItemList =>
       throw _privateConstructorUsedError;
 
@@ -35,8 +36,8 @@ abstract class $LifetimeStateCopyWith<$Res> {
   @useResult
   $Res call(
       {LifetimeModel? lifetime,
-      List<Lifetime> lifetimeList,
-      Map<String, Lifetime> lifetimeMap,
+      List<LifetimeModel> lifetimeList,
+      Map<String, LifetimeModel> lifetimeMap,
       List<LifetimeItemModel> lifetimeItemList});
 }
 
@@ -66,11 +67,11 @@ class _$LifetimeStateCopyWithImpl<$Res, $Val extends LifetimeState>
       lifetimeList: null == lifetimeList
           ? _value.lifetimeList
           : lifetimeList // ignore: cast_nullable_to_non_nullable
-              as List<Lifetime>,
+              as List<LifetimeModel>,
       lifetimeMap: null == lifetimeMap
           ? _value.lifetimeMap
           : lifetimeMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, Lifetime>,
+              as Map<String, LifetimeModel>,
       lifetimeItemList: null == lifetimeItemList
           ? _value.lifetimeItemList
           : lifetimeItemList // ignore: cast_nullable_to_non_nullable
@@ -89,8 +90,8 @@ abstract class _$$LifetimeStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {LifetimeModel? lifetime,
-      List<Lifetime> lifetimeList,
-      Map<String, Lifetime> lifetimeMap,
+      List<LifetimeModel> lifetimeList,
+      Map<String, LifetimeModel> lifetimeMap,
       List<LifetimeItemModel> lifetimeItemList});
 }
 
@@ -118,11 +119,11 @@ class __$$LifetimeStateImplCopyWithImpl<$Res>
       lifetimeList: null == lifetimeList
           ? _value._lifetimeList
           : lifetimeList // ignore: cast_nullable_to_non_nullable
-              as List<Lifetime>,
+              as List<LifetimeModel>,
       lifetimeMap: null == lifetimeMap
           ? _value._lifetimeMap
           : lifetimeMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, Lifetime>,
+              as Map<String, LifetimeModel>,
       lifetimeItemList: null == lifetimeItemList
           ? _value._lifetimeItemList
           : lifetimeItemList // ignore: cast_nullable_to_non_nullable
@@ -136,8 +137,8 @@ class __$$LifetimeStateImplCopyWithImpl<$Res>
 class _$LifetimeStateImpl implements _LifetimeState {
   const _$LifetimeStateImpl(
       {this.lifetime,
-      final List<Lifetime> lifetimeList = const [],
-      final Map<String, Lifetime> lifetimeMap = const {},
+      final List<LifetimeModel> lifetimeList = const [],
+      final Map<String, LifetimeModel> lifetimeMap = const {},
       final List<LifetimeItemModel> lifetimeItemList = const []})
       : _lifetimeList = lifetimeList,
         _lifetimeMap = lifetimeMap,
@@ -145,19 +146,19 @@ class _$LifetimeStateImpl implements _LifetimeState {
 
   @override
   final LifetimeModel? lifetime;
-  final List<Lifetime> _lifetimeList;
+  final List<LifetimeModel> _lifetimeList;
   @override
   @JsonKey()
-  List<Lifetime> get lifetimeList {
+  List<LifetimeModel> get lifetimeList {
     if (_lifetimeList is EqualUnmodifiableListView) return _lifetimeList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_lifetimeList);
   }
 
-  final Map<String, Lifetime> _lifetimeMap;
+  final Map<String, LifetimeModel> _lifetimeMap;
   @override
   @JsonKey()
-  Map<String, Lifetime> get lifetimeMap {
+  Map<String, LifetimeModel> get lifetimeMap {
     if (_lifetimeMap is EqualUnmodifiableMapView) return _lifetimeMap;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_lifetimeMap);
@@ -211,16 +212,16 @@ class _$LifetimeStateImpl implements _LifetimeState {
 abstract class _LifetimeState implements LifetimeState {
   const factory _LifetimeState(
       {final LifetimeModel? lifetime,
-      final List<Lifetime> lifetimeList,
-      final Map<String, Lifetime> lifetimeMap,
+      final List<LifetimeModel> lifetimeList,
+      final Map<String, LifetimeModel> lifetimeMap,
       final List<LifetimeItemModel> lifetimeItemList}) = _$LifetimeStateImpl;
 
   @override
   LifetimeModel? get lifetime;
   @override
-  List<Lifetime> get lifetimeList;
+  List<LifetimeModel> get lifetimeList;
   @override
-  Map<String, Lifetime> get lifetimeMap;
+  Map<String, LifetimeModel> get lifetimeMap;
   @override
   List<LifetimeItemModel> get lifetimeItemList;
   @override

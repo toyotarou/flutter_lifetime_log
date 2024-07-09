@@ -36,13 +36,13 @@ class GenbaName extends _$GenbaName {
 
       // ignore: avoid_dynamic_calls
       for (var i = 0; i < value['data'].length.toString().toInt(); i++) {
-        final val = GenbaNameModel.fromJson(
+        final model = GenbaNameModel.fromJson(
           // ignore: avoid_dynamic_calls
           value['data'][i] as Map<String, dynamic>,
         );
 
-        list.add(val);
-        map[val.yearmonth] = val;
+        list.add(model);
+        map[model.yearmonth] = model;
       }
 
       state = state.copyWith(genbaNameList: list, genbaNameMap: map);
