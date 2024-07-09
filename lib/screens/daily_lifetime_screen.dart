@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../extensions/extensions.dart';
-import '../models/lifetime.dart';
-import '../state/lifetime/lifetime.dart';
+import 'package:lifetime_log/extensions/extensions.dart';
+import 'package:lifetime_log/models/lifetime.dart';
+import 'package:lifetime_log/state/lifetime/lifetime.dart';
 
 class DailyLifetimeScreen extends ConsumerStatefulWidget {
   const DailyLifetimeScreen({super.key, required this.date});

@@ -1,9 +1,12 @@
 enum APIPath {
   getholiday,
   getLifetimeRecordItem,
-  insertLifetime,
   getLifetimeDateRecord,
   getLifetimeYearlyRecord,
+  insertLifetime,
+  getGenbaWorkTime,
+  worktimemonthdata, //{"date":"2022-01-01"}
+  worktimesummary,
 }
 
 extension APIPathExtension on APIPath {
@@ -20,6 +23,13 @@ extension APIPathExtension on APIPath {
         return 'getLifetimeDateRecord';
       case APIPath.getLifetimeYearlyRecord:
         return 'getLifetimeYearlyRecord';
+
+      case APIPath.getGenbaWorkTime:
+        return 'getGenbaWorkTime';
+      case APIPath.worktimemonthdata:
+        return 'worktimemonthdata';
+      case APIPath.worktimesummary:
+        return 'worktimesummary';
     }
   }
 }

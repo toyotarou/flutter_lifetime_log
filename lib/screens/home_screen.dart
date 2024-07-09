@@ -1,69 +1,140 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lifetime_log/const/const.dart';
+import 'package:lifetime_log/extensions/extensions.dart';
+import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
+import 'package:lifetime_log/screens/yearly_calendar_alert.dart';
+import 'package:lifetime_log/state/worktime/worktime.dart';
 
-import 'pages/yearly_calendar_page.dart';
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key});
 
-class TabInfo {
-  TabInfo(this.label, this.widget);
-
-  String label;
-  Widget widget;
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-// ignore: must_be_immutable
-class HomeScreen extends ConsumerWidget {
-  HomeScreen({super.key});
-
-  List<TabInfo> tabs = [];
-
-  ///
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    makeTab();
+  void initState() {
+    super.initState();
 
-    return DefaultTabController(
-      length: tabs.length,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            //-------------------------//これを消すと「←」が出てくる（消さない）
-            leading: const Icon(Icons.check_box_outline_blank, color: Colors.transparent),
-            //-------------------------//これを消すと「←」が出てくる（消さない）
+    ref.read(worktimeProvider.notifier).getWorktime();
+  }
 
-            bottom: TabBar(
-              isScrollable: true,
-              indicatorColor: Colors.blueAccent,
-              tabs: tabs.map((TabInfo tab) => Tab(text: tab.label)).toList(),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(),
+                IconButton(
+                  onPressed: () {
+                    LifetimeDialog(
+                      context: context,
+                      widget: YearlyCalendarAlert(),
+                      clearBarrierColor: true,
+                    );
+                  },
+                  icon: const Icon(Icons.calendar_month),
+                ),
+              ],
             ),
-          ),
+            Expanded(
+              child: displayWorkTimeRecord(),
+            ),
+          ],
         ),
-        body: TabBarView(children: tabs.map((tab) => tab.widget).toList()),
       ),
     );
   }
 
   ///
-  void makeTab() {
-    tabs = [];
+  Widget displayWorkTimeRecord() {
+    final list = <Widget>[];
 
-    final list = <int>[];
+    var worktimeMap =
+        ref.watch(worktimeProvider.select((value) => value.worktimeMap));
 
-    for (var i = 2023; i <= DateTime.now().year; i++) {
-      list.add(i);
+    for (var i = appStartYear; i <= DateTime.now().year; i++) {
+      list.add(
+        Container(
+          margin: const EdgeInsets.all(2),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Text(i.toString()),
+              ),
+              Column(
+                children: List.generate(12, (index) => index).map((e) {
+                  var ym = '$i-${(e + 1).toString().padLeft(2, '0')}';
+
+                  return Stack(
+                    children: [
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          child: Text(
+                            (e + 1).toString(),
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.grey.withOpacity(0.5),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: context.screenSize.width / 2,
+                        height: context.screenSize.height / 18,
+                        margin: const EdgeInsets.symmetric(vertical: 3),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey.withOpacity(0.5),
+                          ),
+                        ),
+                        child: (worktimeMap[ym] == null)
+                            ? Container()
+                            : DefaultTextStyle(
+                                style: const TextStyle(fontSize: 12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      worktimeMap[ym]!.genbaName,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      worktimeMap[ym]!.agentName,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                      ),
+                    ],
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        ),
+      );
     }
 
-    list
-      ..sort((a, b) => -1 * a.compareTo(b))
-      ..forEach((element) {
-        tabs.add(
-          TabInfo(
-            element.toString(),
-            YearlyCalendarPage(date: DateTime(element)),
-          ),
-        );
-      });
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(children: list),
+    );
   }
 }

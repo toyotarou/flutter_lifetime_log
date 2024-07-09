@@ -1,14 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lifetime_log/data/http/client.dart';
+import 'package:lifetime_log/data/http/path.dart';
+import 'package:lifetime_log/extensions/extensions.dart';
+import 'package:lifetime_log/models/lifetime.dart';
+import 'package:lifetime_log/models/lifetime_item.dart';
+import 'package:lifetime_log/utility/utility.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../data/http/client.dart';
-import '../../data/http/path.dart';
-import '../../extensions/extensions.dart';
-import '../../models/lifetime.dart';
-import '../../models/lifetime_item.dart';
-import '../../utility/utility.dart';
-
 part 'lifetime.freezed.dart';
+
 part 'lifetime.g.dart';
 
 @freezed
@@ -17,7 +17,7 @@ class LifetimeState with _$LifetimeState {
     LifetimeModel? lifetime,
     @Default([]) List<Lifetime> lifetimeList,
     @Default({}) Map<String, Lifetime> lifetimeMap,
-    @Default([]) List<LifetimeItem> lifetimeItemList,
+    @Default([]) List<LifetimeItemModel> lifetimeItemList,
   }) = _LifetimeState;
 }
 
@@ -34,11 +34,11 @@ class Lifetime extends _$Lifetime {
     final client = ref.read(httpClientProvider);
 
     await client.post(path: APIPath.getLifetimeRecordItem).then((value) {
-      final list = <LifetimeItem>[];
+      final list = <LifetimeItemModel>[];
 
       // ignore: avoid_dynamic_calls
       for (var i = 0; i < value['data'].length.toString().toInt(); i++) {
-        final val = LifetimeItem.fromJson(
+        final val = LifetimeItemModel.fromJson(
           // ignore: avoid_dynamic_calls
           value['data'][i] as Map<String, dynamic>,
         );

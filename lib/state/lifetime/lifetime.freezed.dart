@@ -19,7 +19,8 @@ mixin _$LifetimeState {
   LifetimeModel? get lifetime => throw _privateConstructorUsedError;
   List<Lifetime> get lifetimeList => throw _privateConstructorUsedError;
   Map<String, Lifetime> get lifetimeMap => throw _privateConstructorUsedError;
-  List<LifetimeItem> get lifetimeItemList => throw _privateConstructorUsedError;
+  List<LifetimeItemModel> get lifetimeItemList =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LifetimeStateCopyWith<LifetimeState> get copyWith =>
@@ -36,7 +37,7 @@ abstract class $LifetimeStateCopyWith<$Res> {
       {LifetimeModel? lifetime,
       List<Lifetime> lifetimeList,
       Map<String, Lifetime> lifetimeMap,
-      List<LifetimeItem> lifetimeItemList});
+      List<LifetimeItemModel> lifetimeItemList});
 }
 
 /// @nodoc
@@ -73,7 +74,7 @@ class _$LifetimeStateCopyWithImpl<$Res, $Val extends LifetimeState>
       lifetimeItemList: null == lifetimeItemList
           ? _value.lifetimeItemList
           : lifetimeItemList // ignore: cast_nullable_to_non_nullable
-              as List<LifetimeItem>,
+              as List<LifetimeItemModel>,
     ) as $Val);
   }
 }
@@ -90,7 +91,7 @@ abstract class _$$LifetimeStateImplCopyWith<$Res>
       {LifetimeModel? lifetime,
       List<Lifetime> lifetimeList,
       Map<String, Lifetime> lifetimeMap,
-      List<LifetimeItem> lifetimeItemList});
+      List<LifetimeItemModel> lifetimeItemList});
 }
 
 /// @nodoc
@@ -125,7 +126,7 @@ class __$$LifetimeStateImplCopyWithImpl<$Res>
       lifetimeItemList: null == lifetimeItemList
           ? _value._lifetimeItemList
           : lifetimeItemList // ignore: cast_nullable_to_non_nullable
-              as List<LifetimeItem>,
+              as List<LifetimeItemModel>,
     ));
   }
 }
@@ -137,7 +138,7 @@ class _$LifetimeStateImpl implements _LifetimeState {
       {this.lifetime,
       final List<Lifetime> lifetimeList = const [],
       final Map<String, Lifetime> lifetimeMap = const {},
-      final List<LifetimeItem> lifetimeItemList = const []})
+      final List<LifetimeItemModel> lifetimeItemList = const []})
       : _lifetimeList = lifetimeList,
         _lifetimeMap = lifetimeMap,
         _lifetimeItemList = lifetimeItemList;
@@ -162,10 +163,10 @@ class _$LifetimeStateImpl implements _LifetimeState {
     return EqualUnmodifiableMapView(_lifetimeMap);
   }
 
-  final List<LifetimeItem> _lifetimeItemList;
+  final List<LifetimeItemModel> _lifetimeItemList;
   @override
   @JsonKey()
-  List<LifetimeItem> get lifetimeItemList {
+  List<LifetimeItemModel> get lifetimeItemList {
     if (_lifetimeItemList is EqualUnmodifiableListView)
       return _lifetimeItemList;
     // ignore: implicit_dynamic_type
@@ -212,7 +213,7 @@ abstract class _LifetimeState implements LifetimeState {
       {final LifetimeModel? lifetime,
       final List<Lifetime> lifetimeList,
       final Map<String, Lifetime> lifetimeMap,
-      final List<LifetimeItem> lifetimeItemList}) = _$LifetimeStateImpl;
+      final List<LifetimeItemModel> lifetimeItemList}) = _$LifetimeStateImpl;
 
   @override
   LifetimeModel? get lifetime;
@@ -221,7 +222,7 @@ abstract class _LifetimeState implements LifetimeState {
   @override
   Map<String, Lifetime> get lifetimeMap;
   @override
-  List<LifetimeItem> get lifetimeItemList;
+  List<LifetimeItemModel> get lifetimeItemList;
   @override
   @JsonKey(ignore: true)
   _$$LifetimeStateImplCopyWith<_$LifetimeStateImpl> get copyWith =>

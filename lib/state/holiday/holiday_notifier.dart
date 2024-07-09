@@ -15,15 +15,15 @@ holidayProvider       Holiday
 ////////////////////////////////////////////////
 
 final holidayProvider =
-    StateNotifierProvider.autoDispose<HolidayNotifier, Holiday>((ref) {
+    StateNotifierProvider.autoDispose<HolidayNotifier, HolidayModel>((ref) {
   final client = ref.read(httpClientProvider);
 
   final utility = Utility();
 
-  return HolidayNotifier(Holiday(data: []), client, utility)..getHoliday();
+  return HolidayNotifier(HolidayModel(data: []), client, utility)..getHoliday();
 });
 
-class HolidayNotifier extends StateNotifier<Holiday> {
+class HolidayNotifier extends StateNotifier<HolidayModel> {
   HolidayNotifier(super.state, this.client, this.utility);
 
   final HttpClient client;
@@ -37,7 +37,7 @@ class HolidayNotifier extends StateNotifier<Holiday> {
         list.add(DateTime.parse(value['data'][i].toString()));
       }
 
-      state = Holiday(data: list);
+      state = HolidayModel(data: list);
     });
 
 

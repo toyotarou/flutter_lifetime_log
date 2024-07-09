@@ -13,12 +13,12 @@ http://toyohide.work/BrainLog/api/getholiday
 
 import '../extensions/extensions.dart';
 
-class Holiday {
-  Holiday({
+class HolidayModel {
+  HolidayModel({
     required this.data,
   });
 
-  factory Holiday.fromJson(Map<String, dynamic> json) => Holiday(
+  factory HolidayModel.fromJson(Map<String, dynamic> json) => HolidayModel(
         data: List<DateTime>.from(
             json['data'].map((x) => x.toString().toDateTime()) as Iterable),
       );

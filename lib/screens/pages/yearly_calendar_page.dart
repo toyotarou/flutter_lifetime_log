@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lifetime_log/extensions/extensions.dart';
+import 'package:lifetime_log/screens/daily_lifetime_screen.dart';
+import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
+import 'package:lifetime_log/state/holiday/holiday_notifier.dart';
+import 'package:lifetime_log/utility/utility.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-
-import '../../extensions/extensions.dart';
-import '../../state/holiday/holiday_notifier.dart';
-import '../../utility/utility.dart';
-import '../components/_lifetime_dialog.dart';
-import '../daily_lifetime_screen.dart';
 
 // ignore: must_be_immutable
 class YearlyCalendarPage extends ConsumerWidget {
