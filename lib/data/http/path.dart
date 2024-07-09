@@ -7,6 +7,7 @@ enum APIPath {
   getGenbaWorkTime,
   worktimemonthdata, //{"date":"2022-01-01"}
   worktimesummary,
+  workinggenbaname,
 }
 
 extension APIPathExtension on APIPath {
@@ -30,6 +31,8 @@ extension APIPathExtension on APIPath {
         return 'worktimemonthdata';
       case APIPath.worktimesummary:
         return 'worktimesummary';
+      case APIPath.workinggenbaname:
+        return 'workinggenbaname';
     }
   }
 }

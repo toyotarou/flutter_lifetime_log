@@ -4,6 +4,7 @@ import 'package:lifetime_log/const/const.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
 import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
 import 'package:lifetime_log/screens/yearly_calendar_alert.dart';
+import 'package:lifetime_log/state/genba_name/genba_name.dart';
 import 'package:lifetime_log/state/worktime/worktime.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -18,7 +19,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void initState() {
     super.initState();
 
-    ref.read(worktimeProvider.notifier).getWorktime();
+    ref.read(genbaNameProvider.notifier).getGenbaName();
   }
 
   @override
@@ -56,8 +57,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget displayWorkTimeRecord() {
     final list = <Widget>[];
 
-    final worktimeMap =
-        ref.watch(worktimeProvider.select((value) => value.worktimeMap));
+    var genbaNameMap =
+        ref.watch(genbaNameProvider.select((value) => value.genbaNameMap));
 
     for (var i = appStartYear; i <= DateTime.now().year; i++) {
       list.add(
@@ -82,7 +83,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         child: Container(
                           padding: const EdgeInsets.all(5),
                           child: Text(
-                            (e + 1).toString(),
+                            (e + 1).toString().padLeft(2, '0'),
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.grey.withOpacity(0.5),
@@ -92,14 +93,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
                       Container(
                         width: context.screenSize.width / 2,
-                        height: context.screenSize.height / 18,
+                        height: context.screenSize.height / 20,
                         margin: const EdgeInsets.symmetric(vertical: 3),
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Colors.grey.withOpacity(0.5),
                           ),
                         ),
-                        child: (worktimeMap[ym] == null)
+                        child: (genbaNameMap[ym] == null)
                             ? Container()
                             : DefaultTextStyle(
                                 style: const TextStyle(fontSize: 12),
@@ -107,12 +108,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      worktimeMap[ym]!.genbaName,
+                                      genbaNameMap[ym]!.genba,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
-                                      worktimeMap[ym]!.agentName,
+                                      genbaNameMap[ym]!.company,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),

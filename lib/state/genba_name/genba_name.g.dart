@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'worktime.dart';
+part of 'genba_name.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$worktimeHash() => r'9673c9e30cf3ad9259d1e040d8471aa39079dc85';
+String _$genbaNameHash() => r'7ea2f88b999b0d76eb3403c76b571f1852cea877';
 
-/// See also [Worktime].
-@ProviderFor(Worktime)
-final worktimeProvider =
-    AutoDisposeNotifierProvider<Worktime, WorktimeState>.internal(
-  Worktime.new,
-  name: r'worktimeProvider',
+/// See also [GenbaName].
+@ProviderFor(GenbaName)
+final genbaNameProvider =
+    AutoDisposeNotifierProvider<GenbaName, GenbaNameState>.internal(
+  GenbaName.new,
+  name: r'genbaNameProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$worktimeHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$genbaNameHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Worktime = AutoDisposeNotifier<WorktimeState>;
+typedef _$GenbaName = AutoDisposeNotifier<GenbaNameState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
