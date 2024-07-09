@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifetime_log/const/const.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
@@ -58,7 +56,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget displayWorkTimeRecord() {
     final list = <Widget>[];
 
-    var worktimeMap =
+    final worktimeMap =
         ref.watch(worktimeProvider.select((value) => value.worktimeMap));
 
     for (var i = appStartYear; i <= DateTime.now().year; i++) {
@@ -74,7 +72,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
               Column(
                 children: List.generate(12, (index) => index).map((e) {
-                  var ym = '$i-${(e + 1).toString().padLeft(2, '0')}';
+                  final ym = '$i-${(e + 1).toString().padLeft(2, '0')}';
 
                   return Stack(
                     children: [
