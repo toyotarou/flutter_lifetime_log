@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
+import 'package:lifetime_log/screens/components/lifetime_record_display_alert.dart';
+import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
+import 'package:lifetime_log/screens/parts/lifetime_display_parts.dart';
+import 'package:lifetime_log/state/app_param/app_param.dart';
+import 'package:lifetime_log/state/lifetime/lifetime.dart';
 
 class LifetimeRecordDisplayPage extends ConsumerStatefulWidget {
   const LifetimeRecordDisplayPage({super.key, required this.date});
@@ -14,6 +19,15 @@ class LifetimeRecordDisplayPage extends ConsumerStatefulWidget {
 
 class _LifetimeRecordDisplayPageState
     extends ConsumerState<LifetimeRecordDisplayPage> {
+  ///
+  @override
+  void initState() {
+    super.initState();
+
+    ref.read(lifetimeProvider.notifier).getDailyLifetime(date: widget.date);
+  }
+
+  ///
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -27,13 +41,6 @@ class _LifetimeRecordDisplayPageState
         height: double.infinity,
         child: DefaultTextStyle(
           style: const TextStyle(fontSize: 12),
-          child: Column(
-            children: [
-              Text(widget.date.yyyymmdd),
-            ],
-          ),
-
-          /*
           child: Stack(
             children: [
               Column(
@@ -45,11 +52,13 @@ class _LifetimeRecordDisplayPageState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                          '${date.yyyymmdd}（${date.youbiStr.substring(0, 3)}）'),
+                          '${widget.date.yyyymmdd}（${widget.date.youbiStr.substring(0, 3)}）'),
                       GestureDetector(
-                        onTap: () => MoneyDialog(
-                            context: context,
-                            widget: LifetimeRecordInputAlert(date: date)),
+                        onTap: () {
+                          // MoneyDialog(
+                          //   context: context,
+                          //   widget: LifetimeRecordInputAlert(date: date));
+                        },
                         child: Icon(Icons.input,
                             color: Colors.white.withOpacity(0.6)),
                       ),
@@ -66,10 +75,139 @@ class _LifetimeRecordDisplayPageState
               ),
             ],
           ),
-          */
         ),
       ),
     );
+  }
+
+  ///
+  Widget _displayNextButton() {
+    final selectedYearlyCalendarDate = ref.watch(
+        appParamProvider.select((value) => value.selectedYearlyCalendarDate));
+
+    var dayDiff = 0;
+
+    if (selectedYearlyCalendarDate != '') {
+      dayDiff = widget.date
+          .difference(DateTime.parse('$selectedYearlyCalendarDate 00:00:00'))
+          .inDays;
+    }
+
+    return Column(
+      children: [
+        if (dayDiff == -3 && selectedYearlyCalendarDate != '') ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () async {
+                  await ref
+                      .read(appParamProvider.notifier)
+                      .setSelectedYearlyCalendarDate(
+                        date: DateTime.parse(
+                                '$selectedYearlyCalendarDate 00:00:00')
+                            .add(
+                          const Duration(days: -7),
+                        ),
+                      );
+
+                  if (context.mounted) {
+                    Navigator.pop(context);
+
+                    await LifetimeDialog(
+                      context: context,
+                      widget: LifetimeRecordDisplayAlert(
+                        date: DateTime.parse(
+                                '$selectedYearlyCalendarDate 00:00:00')
+                            .add(const Duration(days: -7)),
+                        beforeNextPageIndex: 6,
+                      ),
+                    );
+                  }
+                },
+                icon: const Icon(Icons.navigate_before,
+                    color: Colors.greenAccent),
+              ),
+              Container(),
+            ],
+          ),
+        ],
+        if (dayDiff == 3 && selectedYearlyCalendarDate != '') ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(),
+              IconButton(
+                onPressed: () async {
+                  await ref
+                      .read(appParamProvider.notifier)
+                      .setSelectedYearlyCalendarDate(
+                        date: DateTime.parse(
+                                '$selectedYearlyCalendarDate 00:00:00')
+                            .add(
+                          const Duration(days: 7),
+                        ),
+                      );
+
+                  if (context.mounted) {
+                    Navigator.pop(context);
+
+                    await LifetimeDialog(
+                      context: context,
+                      widget: LifetimeRecordDisplayAlert(
+                        date: DateTime.parse(
+                                '$selectedYearlyCalendarDate 00:00:00')
+                            .add(const Duration(days: 7)),
+                        beforeNextPageIndex: 0,
+                      ),
+                    );
+                  }
+                },
+                icon:
+                    const Icon(Icons.navigate_next, color: Colors.greenAccent),
+              ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+
+  ///
+  Widget _displayLifetime() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(child: _displayLifetimeRecord()),
+        Expanded(
+            flex: 2,
+            child: Column(
+              children: [
+                Container(
+                  height: 200,
+                  padding: const EdgeInsets.all(5),
+                  child: _displayTimeplace(),
+                ),
+              ],
+            )),
+      ],
+    );
+  }
+
+  ///
+  Widget _displayLifetimeRecord() {
+    final lifetime =
+        ref.watch(lifetimeProvider.select((value) => value.lifetime));
+
+    return LifetimeDisplayParts(
+      lifetime: lifetime,
+      textDisplay: true,
+    );
+  }
+
+  ///
+  Widget _displayTimeplace() {
+    return Container();
   }
 }
 

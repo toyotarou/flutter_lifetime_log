@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'lifetime.dart';
+part of 'salary.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$lifetimeHash() => r'5777fbb6a9bedb76f55b6d978fb096af7c52fa15';
+String _$salaryHash() => r'18e6728e5b0fb09e4cd6ac175d4d103684bd8c4a';
 
-/// See also [Lifetime].
-@ProviderFor(Lifetime)
-final lifetimeProvider =
-    AutoDisposeNotifierProvider<Lifetime, LifetimeState>.internal(
-  Lifetime.new,
-  name: r'lifetimeProvider',
+/// See also [Salary].
+@ProviderFor(Salary)
+final salaryProvider =
+    AutoDisposeNotifierProvider<Salary, SalaryState>.internal(
+  Salary.new,
+  name: r'salaryProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$lifetimeHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$salaryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Lifetime = AutoDisposeNotifier<LifetimeState>;
+typedef _$Salary = AutoDisposeNotifier<SalaryState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

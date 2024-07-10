@@ -5,6 +5,7 @@ class WorkTimeSummaryModel {
 
   factory WorkTimeSummaryModel.fromJson(Map<String, dynamic> json) =>
       WorkTimeSummaryModel(
+        // ignore: avoid_dynamic_calls
         data: List<String>.from(json['data'].map((x) => x)),
       );
   List<String> data;

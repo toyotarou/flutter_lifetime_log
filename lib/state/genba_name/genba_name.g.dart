@@ -6,7 +6,7 @@ part of 'genba_name.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$genbaNameHash() => r'e3fa18492c7f33b18b472afb293b77910b6a665f';
+String _$genbaNameHash() => r'3a14e1790786515354cccb1148e7791c37cded34';
 
 /// See also [GenbaName].
 @ProviderFor(GenbaName)

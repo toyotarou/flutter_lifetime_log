@@ -109,12 +109,17 @@ class Lifetime extends _$Lifetime {
       path: APIPath.getLifetimeDateRecord,
       body: {'date': date.yyyymmdd},
     ).then((value) {
-      final model = LifetimeModel.fromJson(
-        // ignore: avoid_dynamic_calls
-        value['data'] as Map<String, dynamic>,
-      );
+      // ignore: avoid_dynamic_calls
+      if (value['data'] == null) {
+        state = state.copyWith(lifetime: null);
+      } else {
+        final model = LifetimeModel.fromJson(
+          // ignore: avoid_dynamic_calls
+          value['data'] as Map<String, dynamic>,
+        );
 
-      state = state.copyWith(lifetime: model);
+        state = state.copyWith(lifetime: model);
+      }
     }).catchError((error, _) {
       utility.showError('予期せぬエラーが発生しました');
     });

@@ -9,6 +9,7 @@ enum APIPath {
   worktimesummary,
   workinggenbaname,
   getAllLifetimeRecord,
+  getsalary,
 }
 
 extension APIPathExtension on APIPath {
@@ -36,6 +37,8 @@ extension APIPathExtension on APIPath {
         return 'workinggenbaname';
       case APIPath.getAllLifetimeRecord:
         return 'getAllLifetimeRecord';
+      case APIPath.getsalary:
+        return 'getsalary';
     }
   }
 }

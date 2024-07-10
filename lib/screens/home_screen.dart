@@ -6,6 +6,7 @@ import 'package:lifetime_log/screens/components/yearly_calendar_alert.dart';
 import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
 import 'package:lifetime_log/state/genba_name/genba_name.dart';
 import 'package:lifetime_log/state/lifetime/lifetime.dart';
+import 'package:lifetime_log/state/salary/salary.dart';
 import 'package:lifetime_log/state/worktime/worktime.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -34,6 +35,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ref.read(worktimeProvider.notifier).getWorktime();
 
     ref.read(lifetimeProvider.notifier).getAllLifetimeRecord();
+
+    ref.read(salaryProvider.notifier).getSalary();
   }
 
   @override
@@ -50,9 +53,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-
-
-
             Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -61,13 +61,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
             ),
-
             Container(
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.8),
               ),
             ),
-
             Column(
               children: [
                 Row(
@@ -138,6 +136,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final worktimeMap =
         ref.watch(worktimeProvider.select((value) => value.worktimeMap));
 
+    final salaryMap =
+        ref.watch(salaryProvider.select((value) => value.salaryMap));
+
     return ScrollablePositionedList.builder(
       scrollDirection: Axis.horizontal,
       itemCount: yearList.length,
@@ -183,23 +184,38 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           padding: const EdgeInsets.all(5),
                           child: Row(
                             children: [
-                              if (worktimeMap[ym] != null) ...[
-                                Container(
-                                  width: context.screenSize.width / 8,
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    (worktimeMap[ym]!.totalTime == '0.0')
-                                        ? ''
-                                        : (recentlyWorkTimeMap[ym] != null)
-                                            ? recentlyWorkTimeMap[ym].toString()
-                                            : worktimeMap[ym]!.totalTime,
-                                    style: TextStyle(
-                                      color:
-                                          Colors.yellowAccent.withOpacity(0.5),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              Container(
+                                width: context.screenSize.width / 6,
+                                alignment: Alignment.topLeft,
+                                child: (salaryMap[ym] == null)
+                                    ? Container()
+                                    : Text(
+                                        salaryMap[ym]!.salary,
+                                        style: TextStyle(
+                                          color: const Color(0xFFFBB6CE)
+                                              .withOpacity(0.5),
+                                        ),
+                                      ),
+                              ),
+                              const SizedBox(width: 10),
+                              Container(
+                                width: context.screenSize.width / 8,
+                                alignment: Alignment.topLeft,
+                                child: (worktimeMap[ym] == null)
+                                    ? Container()
+                                    : Text(
+                                        (worktimeMap[ym]!.totalTime == '0.0')
+                                            ? ''
+                                            : (recentlyWorkTimeMap[ym] != null)
+                                                ? recentlyWorkTimeMap[ym]
+                                                    .toString()
+                                                : worktimeMap[ym]!.totalTime,
+                                        style: TextStyle(
+                                          color: Colors.yellowAccent
+                                              .withOpacity(0.5),
+                                        ),
+                                      ),
+                              ),
                               const SizedBox(width: 10),
                               Container(
                                 width: context.screenSize.width / 15,

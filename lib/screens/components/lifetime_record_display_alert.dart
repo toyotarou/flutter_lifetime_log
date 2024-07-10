@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
 import 'package:lifetime_log/screens/pages/lifetime_record_display_page.dart';
+import 'package:lifetime_log/state/app_param/app_param.dart';
 
 class TabInfo {
   TabInfo(this.label, this.widget);
@@ -12,39 +14,33 @@ class TabInfo {
   Widget widget;
 }
 
-class LifetimeRecordDisplayAlert extends ConsumerStatefulWidget {
-  const LifetimeRecordDisplayAlert(
+// ignore: must_be_immutable
+class LifetimeRecordDisplayAlert extends HookConsumerWidget {
+  LifetimeRecordDisplayAlert(
       {super.key, required this.date, this.beforeNextPageIndex});
 
   final DateTime date;
 
   final int? beforeNextPageIndex;
 
-  @override
-  ConsumerState<LifetimeRecordDisplayAlert> createState() =>
-      _LifetimeRecordDisplayAlertState();
-}
-
-class _LifetimeRecordDisplayAlertState
-    extends ConsumerState<LifetimeRecordDisplayAlert> {
   List<TabInfo> tabs = [];
 
   int dayDiff = 3;
 
   ///
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     makeTab();
 
     // 最初に開くタブを指定する
-    final exDate = widget.date.yyyymmdd.split('-');
+    final exDate = date.yyyymmdd.split('-');
 
     var index = (tabs.length >= ((dayDiff * 2) + 1))
         ? (tabs.length / 2).floor()
         : exDate[2].toInt() - 1;
 
-    if (widget.beforeNextPageIndex == 6 || widget.beforeNextPageIndex == 0) {
-      index = widget.beforeNextPageIndex!;
+    if (beforeNextPageIndex == 6 || beforeNextPageIndex == 0) {
+      index = beforeNextPageIndex!;
     }
 
     final tabController = useTabController(initialLength: tabs.length);
@@ -52,6 +48,12 @@ class _LifetimeRecordDisplayAlertState
       tabController.index = index;
     }
     // 最初に開くタブを指定する
+
+    Future(() {
+      ref
+          .read(appParamProvider.notifier)
+          .setSelectedYearlyCalendarDate(date: date);
+    });
 
     return DefaultTabController(
       length: tabs.length,
@@ -97,7 +99,7 @@ class _LifetimeRecordDisplayAlertState
     final dayDiffStart = dayDiff * -1;
 
     for (var i = dayDiffStart; i <= dayDiff; i++) {
-      final genDate = widget.date.add(Duration(days: i));
+      final genDate = date.add(Duration(days: i));
 
       if (genDate.year >= 2023) {
         list.add(genDate.yyyymmdd);

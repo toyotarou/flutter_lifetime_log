@@ -36,6 +36,7 @@ class Worktime extends _$Worktime {
 
       // ignore: avoid_dynamic_calls
       for (var i = 0; i < value['data'].length.toString().toInt(); i++) {
+        // ignore: avoid_dynamic_calls
         final exValue = value['data'][i].toString().split(';');
 
         final exLastValue = exValue[exValue.length - 1].split('/');
