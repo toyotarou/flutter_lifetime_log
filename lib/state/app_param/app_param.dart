@@ -10,6 +10,7 @@ part 'app_param.g.dart';
 class AppParamState with _$AppParamState {
   const factory AppParamState({
     @Default('') String selectedYearlyCalendarDate,
+    @Default('') String selectedInputChoiceChip,
   }) = _AppParamState;
 }
 
@@ -20,7 +21,10 @@ class AppParam extends _$AppParam {
   AppParamState build() => const AppParamState();
 
   ///
-  Future<void> setSelectedYearlyCalendarDate({required DateTime date}) async {
-    state = state.copyWith(selectedYearlyCalendarDate: date.yyyymmdd);
-  }
+  Future<void> setSelectedYearlyCalendarDate({required DateTime date}) async =>
+      state = state.copyWith(selectedYearlyCalendarDate: date.yyyymmdd);
+
+  ///
+  Future<void> setSelectedInputChoiceChip({required String string}) async =>
+      state = state.copyWith(selectedInputChoiceChip: string);
 }

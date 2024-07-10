@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lifetime_log/screens/components/lifetime_record_input_alert.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
 import 'package:lifetime_log/screens/components/lifetime_record_display_alert.dart';
+import 'package:lifetime_log/screens/components/lifetime_record_input_alert.dart';
 import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
 import 'package:lifetime_log/screens/parts/lifetime_display_parts.dart';
 import 'package:lifetime_log/state/app_param/app_param.dart';
