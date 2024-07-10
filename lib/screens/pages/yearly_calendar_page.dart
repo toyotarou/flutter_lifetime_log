@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lifetime_log/screens/components/lifetime_record_display_alert.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
 import 'package:lifetime_log/models/lifetime.dart';
 import 'package:lifetime_log/screens/daily_lifetime_screen.dart';
@@ -135,15 +136,9 @@ class YearlyCalendarPage extends ConsumerWidget {
               ? Container()
               : GestureDetector(
                   onTap: () async {
-                    // await _ref.read(lifetimeProvider.notifier).getDailyLifetime(
-                    //       date: DateTime.parse(
-                    //         '${date.yyyy}-${days[i]} 00:00:00',
-                    //       ),
-                    //     );
-
                     await LifetimeDialog(
                       context: _context,
-                      widget: DailyLifetimeScreen(
+                      widget: LifetimeRecordDisplayAlert(
                         date: DateTime.parse(
                           '${date.yyyy}-${days[i]} 00:00:00',
                         ),

@@ -48,28 +48,50 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+
+
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/bg.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.8),
+              ),
+            ),
+
+            Column(
               children: [
-                Container(),
-                IconButton(
-                  onPressed: () {
-                    LifetimeDialog(
-                      context: context,
-                      widget: const YearlyCalendarAlert(),
-                      clearBarrierColor: true,
-                    );
-                  },
-                  icon: const Icon(Icons.calendar_month),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(),
+                    IconButton(
+                      onPressed: () {
+                        LifetimeDialog(
+                          context: context,
+                          widget: const YearlyCalendarAlert(),
+                          clearBarrierColor: true,
+                        );
+                      },
+                      icon: const Icon(Icons.calendar_month),
+                    ),
+                  ],
+                ),
+                displayYearButtons(),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: displayWorkTimeRecord(),
                 ),
               ],
-            ),
-            displayYearButtons(),
-            const SizedBox(height: 10),
-            Expanded(
-              child: displayWorkTimeRecord(),
             ),
           ],
         ),
@@ -123,6 +145,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       itemPositionsListener: listener,
       // ItemPositionsListenerでスクロールを監視
       itemBuilder: (context, index) {
+        final age = yearList[index] - birthday.year;
+
         return Container(
           margin: const EdgeInsets.all(2),
           child: Column(
@@ -130,7 +154,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 5),
-                child: Text(yearList[index].toString()),
+                width: context.screenSize.width / 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(yearList[index].toString()),
+                    Text(
+                      '${age - 1} / $age 歳',
+                      style: TextStyle(
+                        color: Colors.orangeAccent.withOpacity(0.5),
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Column(
                 children: List.generate(12, (index) => index).map((e) {
@@ -187,6 +224,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           border: Border.all(
                             color: Colors.grey.withOpacity(0.5),
                           ),
+                          color: ((e + 1) == 8)
+                              ? Colors.orangeAccent.withOpacity(0.1)
+                              : Colors.transparent,
                         ),
                         child: (genbaNameMap[ym] == null)
                             ? Container()
