@@ -142,6 +142,7 @@ class YearlyCalendarPage extends ConsumerWidget {
                           '${date.yyyy}-${days[i]} 00:00:00',
                         ),
                       ),
+                      clearBarrierColor: true,
                     );
                   },
                   child: Container(

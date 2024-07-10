@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lifetime_log/screens/components/lifetime_record_input_alert.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
 import 'package:lifetime_log/screens/components/lifetime_record_display_alert.dart';
 import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
@@ -55,9 +56,11 @@ class _LifetimeRecordDisplayPageState
                           '${widget.date.yyyymmdd}（${widget.date.youbiStr.substring(0, 3)}）'),
                       GestureDetector(
                         onTap: () {
-                          // MoneyDialog(
-                          //   context: context,
-                          //   widget: LifetimeRecordInputAlert(date: date));
+                          LifetimeDialog(
+                            context: context,
+                            widget: LifetimeRecordInputAlert(date: widget.date),
+                            clearBarrierColor: true,
+                          );
                         },
                         child: Icon(Icons.input,
                             color: Colors.white.withOpacity(0.6)),

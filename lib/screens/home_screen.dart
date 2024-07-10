@@ -77,7 +77,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         LifetimeDialog(
                           context: context,
                           widget: const YearlyCalendarAlert(),
-                          clearBarrierColor: true,
                         );
                       },
                       icon: const Icon(Icons.calendar_month),
