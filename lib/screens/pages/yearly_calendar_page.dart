@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
+import 'package:lifetime_log/models/lifetime.dart';
 import 'package:lifetime_log/screens/daily_lifetime_screen.dart';
 import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
 import 'package:lifetime_log/state/holiday/holiday_notifier.dart';
@@ -9,9 +10,11 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 
 // ignore: must_be_immutable
 class YearlyCalendarPage extends ConsumerWidget {
-  YearlyCalendarPage({super.key, required this.date});
+  YearlyCalendarPage(
+      {super.key, required this.date, required this.lifetimeMap});
 
   final DateTime date;
+  final Map<String, LifetimeModel> lifetimeMap;
 
   DateTime yearFirst = DateTime.now();
 
@@ -174,7 +177,11 @@ class YearlyCalendarPage extends ConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             _dispRowNum(mmdd: days[i], rowNum: rowNum),
-                            Container(),
+                            _displayYellowMark(
+                              date: DateTime.parse(
+                                '${date.yyyy}-${days[i]} 00:00:00',
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -190,6 +197,19 @@ class YearlyCalendarPage extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: list,
     );
+  }
+
+  ///
+  Widget _displayYellowMark({required DateTime date}) {
+    if (lifetimeMap[date.yyyymmdd] != null) {
+      return Icon(
+        Icons.star,
+        size: 8,
+        color: Colors.yellowAccent.withOpacity(0.5),
+      );
+    }
+
+    return Container();
   }
 
   ///

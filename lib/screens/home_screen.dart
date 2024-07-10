@@ -58,7 +58,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   onPressed: () {
                     LifetimeDialog(
                       context: context,
-                      widget: YearlyCalendarAlert(),
+                      widget: const YearlyCalendarAlert(),
                       clearBarrierColor: true,
                     );
                   },
