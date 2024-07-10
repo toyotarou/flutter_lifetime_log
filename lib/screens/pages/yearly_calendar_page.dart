@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lifetime_log/screens/components/lifetime_record_display_alert.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
 import 'package:lifetime_log/models/lifetime.dart';
-import 'package:lifetime_log/screens/daily_lifetime_screen.dart';
+import 'package:lifetime_log/screens/components/lifetime_record_display_alert.dart';
 import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
 import 'package:lifetime_log/state/holiday/holiday_notifier.dart';
 import 'package:lifetime_log/utility/utility.dart';

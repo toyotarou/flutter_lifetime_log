@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lifetime_log/screens/pages/lifetime_record_display_page.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
+import 'package:lifetime_log/screens/pages/lifetime_record_display_page.dart';
 
 class TabInfo {
   TabInfo(this.label, this.widget);
