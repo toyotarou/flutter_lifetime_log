@@ -115,9 +115,11 @@ class _LifetimeRecordDisplayPageState
                       );
 
                   if (context.mounted) {
+                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
 
                     await LifetimeDialog(
+                      // ignore: use_build_context_synchronously
                       context: context,
                       widget: LifetimeRecordDisplayAlert(
                         date: DateTime.parse(
@@ -153,9 +155,11 @@ class _LifetimeRecordDisplayPageState
                       );
 
                   if (context.mounted) {
+                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
 
                     await LifetimeDialog(
+                      // ignore: use_build_context_synchronously
                       context: context,
                       widget: LifetimeRecordDisplayAlert(
                         date: DateTime.parse(

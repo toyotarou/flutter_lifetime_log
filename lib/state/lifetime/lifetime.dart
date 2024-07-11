@@ -18,6 +18,8 @@ class LifetimeState with _$LifetimeState {
     @Default([]) List<LifetimeModel> lifetimeList,
     @Default({}) Map<String, LifetimeModel> lifetimeMap,
     @Default([]) List<LifetimeItemModel> lifetimeItemList,
+    @Default(0) int itemPos,
+    @Default([]) List<String> lifetimeStringList,
   }) = _LifetimeState;
 }
 
@@ -27,7 +29,11 @@ class Lifetime extends _$Lifetime {
 
   ///
   @override
-  LifetimeState build() => const LifetimeState();
+  LifetimeState build() {
+    final list = List.generate(24, (index) => '');
+
+    return LifetimeState(lifetimeStringList: list);
+  }
 
   ///
   Future<void> getLifetimeItem() async {
@@ -121,6 +127,36 @@ class Lifetime extends _$Lifetime {
         state = state.copyWith(lifetime: model);
       }
     }).catchError((error, _) {
+      utility.showError('予期せぬエラーが発生しました');
+    });
+  }
+
+  ///
+  Future<void> setItemPos({required int pos}) async =>
+      state = state.copyWith(itemPos: pos);
+
+  ///
+  Future<void> setLifetimeStringList(
+      {required int pos, required String item}) async {
+    final items = <String>[...state.lifetimeStringList];
+    items[pos] = item;
+    state = state.copyWith(lifetimeStringList: items);
+  }
+
+  ///
+  Future<void> inputLifetime({required DateTime date}) async {
+    final client = ref.read(httpClientProvider);
+
+    final items = <String?>[...state.lifetimeStringList];
+
+    final uploadData = <String, dynamic>{};
+    uploadData['date'] = date.yyyymmdd;
+    uploadData['lifetime'] = items.join('|');
+
+    await client
+        .post(path: APIPath.insertLifetime, body: uploadData)
+        .then((value) {})
+        .catchError((error, _) {
       utility.showError('予期せぬエラーが発生しました');
     });
   }

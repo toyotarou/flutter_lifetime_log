@@ -11,6 +11,7 @@ class AppParamState with _$AppParamState {
   const factory AppParamState({
     @Default('') String selectedYearlyCalendarDate,
     @Default('') String selectedInputChoiceChip,
+    @Default('') String errorMessage,
   }) = _AppParamState;
 }
 
@@ -27,4 +28,8 @@ class AppParam extends _$AppParam {
   ///
   Future<void> setSelectedInputChoiceChip({required String string}) async =>
       state = state.copyWith(selectedInputChoiceChip: string);
+
+  ///
+  Future<void> setErrorMessage({required String msg}) async =>
+      state = state.copyWith(errorMessage: msg);
 }
