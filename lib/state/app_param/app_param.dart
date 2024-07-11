@@ -12,6 +12,7 @@ class AppParamState with _$AppParamState {
     @Default('') String selectedYearlyCalendarDate,
     @Default('') String selectedInputChoiceChip,
     @Default('') String errorMessage,
+    @Default(true) bool homeGenbaNameDisplay,
   }) = _AppParamState;
 }
 
@@ -32,4 +33,8 @@ class AppParam extends _$AppParam {
   ///
   Future<void> setErrorMessage({required String msg}) async =>
       state = state.copyWith(errorMessage: msg);
+
+  ///
+  Future<void> setHomeGenbaNameDisplay({required bool flag}) async =>
+      state = state.copyWith(homeGenbaNameDisplay: flag);
 }

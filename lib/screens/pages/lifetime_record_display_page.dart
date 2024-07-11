@@ -54,16 +54,31 @@ class _LifetimeRecordDisplayPageState
                     children: [
                       Text(
                           '${widget.date.yyyymmdd}（${widget.date.youbiStr.substring(0, 3)}）'),
-                      GestureDetector(
-                        onTap: () {
-                          LifetimeDialog(
-                            context: context,
-                            widget: LifetimeRecordInputAlert(date: widget.date),
-                            clearBarrierColor: true,
-                          );
-                        },
-                        child: Icon(Icons.input,
-                            color: Colors.white.withOpacity(0.6)),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              ref
+                                  .read(lifetimeProvider.notifier)
+                                  .getAllLifetimeRecord();
+
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.close),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              LifetimeDialog(
+                                context: context,
+                                widget:
+                                    LifetimeRecordInputAlert(date: widget.date),
+                                clearBarrierColor: true,
+                              );
+                            },
+                            icon: Icon(Icons.input,
+                                color: Colors.white.withOpacity(0.6)),
+                          ),
+                        ],
                       ),
                     ],
                   ),

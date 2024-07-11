@@ -4,6 +4,7 @@ import 'package:lifetime_log/const/const.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
 import 'package:lifetime_log/screens/components/yearly_calendar_alert.dart';
 import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
+import 'package:lifetime_log/state/app_param/app_param.dart';
 import 'package:lifetime_log/state/genba_name/genba_name.dart';
 import 'package:lifetime_log/state/lifetime/lifetime.dart';
 import 'package:lifetime_log/state/salary/salary.dart';
@@ -49,6 +50,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     makeRecentlyWorkTimeMap();
 
+    final homeGenbaNameDisplay = ref
+        .watch(appParamProvider.select((value) => value.homeGenbaNameDisplay));
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -72,14 +76,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(),
-                    IconButton(
-                      onPressed: () {
-                        LifetimeDialog(
-                          context: context,
-                          widget: const YearlyCalendarAlert(),
-                        );
-                      },
-                      icon: const Icon(Icons.calendar_month),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            ref
+                                .read(appParamProvider.notifier)
+                                .setHomeGenbaNameDisplay(
+                                    flag: !homeGenbaNameDisplay);
+                          },
+                          icon: const Icon(Icons.check_box_outline_blank),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            LifetimeDialog(
+                              context: context,
+                              widget: const YearlyCalendarAlert(),
+                            );
+                          },
+                          icon: const Icon(Icons.calendar_month),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -138,6 +155,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final salaryMap =
         ref.watch(salaryProvider.select((value) => value.salaryMap));
 
+    final homeGenbaNameDisplay = ref
+        .watch(appParamProvider.select((value) => value.homeGenbaNameDisplay));
+
     return ScrollablePositionedList.builder(
       scrollDirection: Axis.horizontal,
       itemCount: yearList.length,
@@ -174,6 +194,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   final ym =
                       '${yearList[index]}-${(e + 1).toString().padLeft(2, '0')}';
 
+                  final textOpacity = homeGenbaNameDisplay ? '0.5' : '1';
+
                   return Stack(
                     children: [
                       Positioned(
@@ -192,7 +214,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                         salaryMap[ym]!.salary,
                                         style: TextStyle(
                                           color: const Color(0xFFFBB6CE)
-                                              .withOpacity(0.5),
+                                              .withOpacity(
+                                                  textOpacity.toDouble()),
                                         ),
                                       ),
                               ),
@@ -211,7 +234,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                                 : worktimeMap[ym]!.totalTime,
                                         style: TextStyle(
                                           color: Colors.yellowAccent
-                                              .withOpacity(0.5),
+                                              .withOpacity(
+                                                  textOpacity.toDouble()),
                                         ),
                                       ),
                               ),
@@ -247,21 +271,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             ? Container()
                             : DefaultTextStyle(
                                 style: const TextStyle(fontSize: 12),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      genbaNameMap[ym]!.genba,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      genbaNameMap[ym]!.company,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
+                                child: (homeGenbaNameDisplay == false)
+                                    ? Container()
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            genbaNameMap[ym]!.genba,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text(
+                                            genbaNameMap[ym]!.company,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
                               ),
                       ),
                     ],

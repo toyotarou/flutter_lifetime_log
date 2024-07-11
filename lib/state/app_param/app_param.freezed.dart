@@ -19,6 +19,7 @@ mixin _$AppParamState {
   String get selectedYearlyCalendarDate => throw _privateConstructorUsedError;
   String get selectedInputChoiceChip => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
+  bool get homeGenbaNameDisplay => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppParamStateCopyWith<AppParamState> get copyWith =>
@@ -34,7 +35,8 @@ abstract class $AppParamStateCopyWith<$Res> {
   $Res call(
       {String selectedYearlyCalendarDate,
       String selectedInputChoiceChip,
-      String errorMessage});
+      String errorMessage,
+      bool homeGenbaNameDisplay});
 }
 
 /// @nodoc
@@ -53,6 +55,7 @@ class _$AppParamStateCopyWithImpl<$Res, $Val extends AppParamState>
     Object? selectedYearlyCalendarDate = null,
     Object? selectedInputChoiceChip = null,
     Object? errorMessage = null,
+    Object? homeGenbaNameDisplay = null,
   }) {
     return _then(_value.copyWith(
       selectedYearlyCalendarDate: null == selectedYearlyCalendarDate
@@ -67,6 +70,10 @@ class _$AppParamStateCopyWithImpl<$Res, $Val extends AppParamState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      homeGenbaNameDisplay: null == homeGenbaNameDisplay
+          ? _value.homeGenbaNameDisplay
+          : homeGenbaNameDisplay // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -82,7 +89,8 @@ abstract class _$$AppParamStateImplCopyWith<$Res>
   $Res call(
       {String selectedYearlyCalendarDate,
       String selectedInputChoiceChip,
-      String errorMessage});
+      String errorMessage,
+      bool homeGenbaNameDisplay});
 }
 
 /// @nodoc
@@ -99,6 +107,7 @@ class __$$AppParamStateImplCopyWithImpl<$Res>
     Object? selectedYearlyCalendarDate = null,
     Object? selectedInputChoiceChip = null,
     Object? errorMessage = null,
+    Object? homeGenbaNameDisplay = null,
   }) {
     return _then(_$AppParamStateImpl(
       selectedYearlyCalendarDate: null == selectedYearlyCalendarDate
@@ -113,6 +122,10 @@ class __$$AppParamStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      homeGenbaNameDisplay: null == homeGenbaNameDisplay
+          ? _value.homeGenbaNameDisplay
+          : homeGenbaNameDisplay // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -123,7 +136,8 @@ class _$AppParamStateImpl implements _AppParamState {
   const _$AppParamStateImpl(
       {this.selectedYearlyCalendarDate = '',
       this.selectedInputChoiceChip = '',
-      this.errorMessage = ''});
+      this.errorMessage = '',
+      this.homeGenbaNameDisplay = true});
 
   @override
   @JsonKey()
@@ -134,10 +148,13 @@ class _$AppParamStateImpl implements _AppParamState {
   @override
   @JsonKey()
   final String errorMessage;
+  @override
+  @JsonKey()
+  final bool homeGenbaNameDisplay;
 
   @override
   String toString() {
-    return 'AppParamState(selectedYearlyCalendarDate: $selectedYearlyCalendarDate, selectedInputChoiceChip: $selectedInputChoiceChip, errorMessage: $errorMessage)';
+    return 'AppParamState(selectedYearlyCalendarDate: $selectedYearlyCalendarDate, selectedInputChoiceChip: $selectedInputChoiceChip, errorMessage: $errorMessage, homeGenbaNameDisplay: $homeGenbaNameDisplay)';
   }
 
   @override
@@ -153,12 +170,14 @@ class _$AppParamStateImpl implements _AppParamState {
                     other.selectedInputChoiceChip, selectedInputChoiceChip) ||
                 other.selectedInputChoiceChip == selectedInputChoiceChip) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.homeGenbaNameDisplay, homeGenbaNameDisplay) ||
+                other.homeGenbaNameDisplay == homeGenbaNameDisplay));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, selectedYearlyCalendarDate,
-      selectedInputChoiceChip, errorMessage);
+      selectedInputChoiceChip, errorMessage, homeGenbaNameDisplay);
 
   @JsonKey(ignore: true)
   @override
@@ -171,7 +190,8 @@ abstract class _AppParamState implements AppParamState {
   const factory _AppParamState(
       {final String selectedYearlyCalendarDate,
       final String selectedInputChoiceChip,
-      final String errorMessage}) = _$AppParamStateImpl;
+      final String errorMessage,
+      final bool homeGenbaNameDisplay}) = _$AppParamStateImpl;
 
   @override
   String get selectedYearlyCalendarDate;
@@ -179,6 +199,8 @@ abstract class _AppParamState implements AppParamState {
   String get selectedInputChoiceChip;
   @override
   String get errorMessage;
+  @override
+  bool get homeGenbaNameDisplay;
   @override
   @JsonKey(ignore: true)
   _$$AppParamStateImplCopyWith<_$AppParamStateImpl> get copyWith =>
