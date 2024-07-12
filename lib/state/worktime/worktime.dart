@@ -27,7 +27,7 @@ class Worktime extends _$Worktime {
   WorktimeState build() => const WorktimeState();
 
   ///
-  Future<void> getWorktime() async {
+  Future<void> getAllWorktime() async {
     final client = ref.read(httpClientProvider);
 
     await client.post(path: APIPath.worktimesummary).then((value) {
@@ -61,7 +61,7 @@ class Worktime extends _$Worktime {
           genbaName: exValue[3],
           salary: exValue[4],
           tanka: exValue[5],
-          data: [],
+          data: dataList,
         );
 
         list.add(workTimeModel);

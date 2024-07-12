@@ -63,6 +63,7 @@ class Lifetime extends _$Lifetime {
     final client = ref.read(httpClientProvider);
 
     await client.post(path: APIPath.getAllLifetimeRecord).then((value) {
+      final list = <LifetimeModel>[];
       final map = <String, LifetimeModel>{};
 
       // ignore: avoid_dynamic_calls
@@ -72,36 +73,11 @@ class Lifetime extends _$Lifetime {
           value['data'][i] as Map<String, dynamic>,
         );
 
+        list.add(model);
         map['${model.year}-${model.month}-${model.day}'] = model;
       }
 
-      state = state.copyWith(lifetimeMap: map);
-    }).catchError((error, _) {
-      utility.showError('予期せぬエラーが発生しました');
-    });
-  }
-
-  ///
-  Future<void> getLifetimeYearlyRecord({required DateTime date}) async {
-    final client = ref.read(httpClientProvider);
-
-    await client.post(
-      path: APIPath.getLifetimeYearlyRecord,
-      body: {'date': date.yyyymmdd},
-    ).then((value) {
-      final map = <String, LifetimeModel>{};
-
-      // ignore: avoid_dynamic_calls
-      for (var i = 0; i < value['data'].length.toString().toInt(); i++) {
-        final model = LifetimeModel.fromJson(
-          // ignore: avoid_dynamic_calls
-          value['data'][i] as Map<String, dynamic>,
-        );
-
-        map['${model.year}-${model.month}-${model.day}'] = model;
-      }
-
-      state = state.copyWith(lifetimeMap: map);
+      state = state.copyWith(lifetimeList: list, lifetimeMap: map);
     }).catchError((error, _) {
       utility.showError('予期せぬエラーが発生しました');
     });
