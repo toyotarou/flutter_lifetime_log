@@ -96,16 +96,6 @@ class _LifetimeRecordInputAlertState
                                 .read(lifetimeProvider.notifier)
                                 .inputLifetime(date: widget.date);
 
-                            // await ref
-                            //     .read(lifetimeProvider.notifier)
-                            //     .getDailyLifetime(date: widget.date);
-                            //
-                            //
-                            //
-                            //
-                            //
-                            //
-
                             Navigator.pop(context);
                           } else {
                             await ref
@@ -290,54 +280,51 @@ class _LifetimeRecordInputAlertState
 
   ///
   Widget _displayReloadButton() {
-    // return IconButton(
-    //     onPressed: () {
-    //       ref
-    //           .read(lifetimeProvider.notifier)
-    //           .getDailyLifetime(date: widget.date);
-    //
-    //       final lifetime =
-    //           ref.watch(lifetimeProvider.select((value) => value.lifetime));
-    //
-    //       if (lifetime != null) {
-    //         final hourDataList = [
-    //           lifetime.hour00,
-    //           lifetime.hour01,
-    //           lifetime.hour02,
-    //           lifetime.hour03,
-    //           lifetime.hour04,
-    //           lifetime.hour05,
-    //           lifetime.hour06,
-    //           lifetime.hour07,
-    //           lifetime.hour08,
-    //           lifetime.hour09,
-    //           lifetime.hour10,
-    //           lifetime.hour11,
-    //           lifetime.hour12,
-    //           lifetime.hour13,
-    //           lifetime.hour14,
-    //           lifetime.hour15,
-    //           lifetime.hour16,
-    //           lifetime.hour17,
-    //           lifetime.hour18,
-    //           lifetime.hour19,
-    //           lifetime.hour20,
-    //           lifetime.hour21,
-    //           lifetime.hour22,
-    //           lifetime.hour23
-    //         ];
-    //
-    //         for (var i = 0; i < hourDataList.length; i++) {
-    //           tecs[i].text = hourDataList[i];
-    //
-    //           ref
-    //               .read(lifetimeProvider.notifier)
-    //               .setLifetimeStringList(pos: i, item: hourDataList[i]);
-    //         }
-    //       }
-    //     },
-    //     icon: const Icon(Icons.refresh));
+    return IconButton(
+        onPressed: () {
+          final dateLifetime = ref.watch(
+              dateLifetimeProvider(date: widget.date.yyyymmdd)
+                  .select((value) => value.value));
 
-    return Container();
+          if (dateLifetime != null) {
+            if (dateLifetime.lifetime != null) {
+              final hourDataList = [
+                dateLifetime.lifetime!.hour00,
+                dateLifetime.lifetime!.hour01,
+                dateLifetime.lifetime!.hour02,
+                dateLifetime.lifetime!.hour03,
+                dateLifetime.lifetime!.hour04,
+                dateLifetime.lifetime!.hour05,
+                dateLifetime.lifetime!.hour06,
+                dateLifetime.lifetime!.hour07,
+                dateLifetime.lifetime!.hour08,
+                dateLifetime.lifetime!.hour09,
+                dateLifetime.lifetime!.hour10,
+                dateLifetime.lifetime!.hour11,
+                dateLifetime.lifetime!.hour12,
+                dateLifetime.lifetime!.hour13,
+                dateLifetime.lifetime!.hour14,
+                dateLifetime.lifetime!.hour15,
+                dateLifetime.lifetime!.hour16,
+                dateLifetime.lifetime!.hour17,
+                dateLifetime.lifetime!.hour18,
+                dateLifetime.lifetime!.hour19,
+                dateLifetime.lifetime!.hour20,
+                dateLifetime.lifetime!.hour21,
+                dateLifetime.lifetime!.hour22,
+                dateLifetime.lifetime!.hour23
+              ];
+
+              for (var i = 0; i < hourDataList.length; i++) {
+                tecs[i].text = hourDataList[i];
+
+                ref
+                    .read(lifetimeProvider.notifier)
+                    .setLifetimeStringList(pos: i, item: hourDataList[i]);
+              }
+            }
+          }
+        },
+        icon: const Icon(Icons.refresh));
   }
 }

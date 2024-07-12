@@ -41,15 +41,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bbb = ref.watch(dateLifetimeProvider(date: '2024-07-12')
-        .select((value) => value.value));
-
-    print(bbb);
-
-    // if (bbb!.lifetime != null) {
-    //   print(bbb.lifetime!.day);
-    // }
-
     yearList = [];
 
     for (var i = appStartYear; i <= DateTime.now().year; i++) {

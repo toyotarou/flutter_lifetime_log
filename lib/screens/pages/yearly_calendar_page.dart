@@ -146,7 +146,6 @@ class _YearlyCalendarPageState extends ConsumerState<YearlyCalendarPage> {
               : GestureDetector(
                   onTap: () async {
                     await LifetimeDialog(
-                      dismiss: false,
                       context: _context,
                       widget: LifetimeRecordDisplayAlert(
                         date: DateTime.parse(
