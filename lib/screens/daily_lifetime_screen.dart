@@ -15,18 +15,24 @@ class DailyLifetimeScreen extends ConsumerStatefulWidget {
 }
 
 class _DailyLifetimeScreenState extends ConsumerState<DailyLifetimeScreen> {
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   getDailyLifetime();
+  // }
+  //
+  // Future<void> getDailyLifetime() async {
+  //   await ref
+  //       .read(lifetimeProvider.notifier)
+  //       .getDailyLifetime(date: widget.date);
+  // }
+  //
+  //
+  //
+  //
 
-    getDailyLifetime();
-  }
 
-  Future<void> getDailyLifetime() async {
-    await ref
-        .read(lifetimeProvider.notifier)
-        .getDailyLifetime(date: widget.date);
-  }
 
   @override
   Widget build(BuildContext context) {

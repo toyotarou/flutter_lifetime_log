@@ -96,9 +96,15 @@ class _LifetimeRecordInputAlertState
                                 .read(lifetimeProvider.notifier)
                                 .inputLifetime(date: widget.date);
 
-                            await ref
-                                .read(lifetimeProvider.notifier)
-                                .getDailyLifetime(date: widget.date);
+                            // await ref
+                            //     .read(lifetimeProvider.notifier)
+                            //     .getDailyLifetime(date: widget.date);
+                            //
+                            //
+                            //
+                            //
+                            //
+                            //
 
                             Navigator.pop(context);
                           } else {
@@ -284,52 +290,54 @@ class _LifetimeRecordInputAlertState
 
   ///
   Widget _displayReloadButton() {
-    return IconButton(
-        onPressed: () {
-          ref
-              .read(lifetimeProvider.notifier)
-              .getDailyLifetime(date: widget.date);
+    // return IconButton(
+    //     onPressed: () {
+    //       ref
+    //           .read(lifetimeProvider.notifier)
+    //           .getDailyLifetime(date: widget.date);
+    //
+    //       final lifetime =
+    //           ref.watch(lifetimeProvider.select((value) => value.lifetime));
+    //
+    //       if (lifetime != null) {
+    //         final hourDataList = [
+    //           lifetime.hour00,
+    //           lifetime.hour01,
+    //           lifetime.hour02,
+    //           lifetime.hour03,
+    //           lifetime.hour04,
+    //           lifetime.hour05,
+    //           lifetime.hour06,
+    //           lifetime.hour07,
+    //           lifetime.hour08,
+    //           lifetime.hour09,
+    //           lifetime.hour10,
+    //           lifetime.hour11,
+    //           lifetime.hour12,
+    //           lifetime.hour13,
+    //           lifetime.hour14,
+    //           lifetime.hour15,
+    //           lifetime.hour16,
+    //           lifetime.hour17,
+    //           lifetime.hour18,
+    //           lifetime.hour19,
+    //           lifetime.hour20,
+    //           lifetime.hour21,
+    //           lifetime.hour22,
+    //           lifetime.hour23
+    //         ];
+    //
+    //         for (var i = 0; i < hourDataList.length; i++) {
+    //           tecs[i].text = hourDataList[i];
+    //
+    //           ref
+    //               .read(lifetimeProvider.notifier)
+    //               .setLifetimeStringList(pos: i, item: hourDataList[i]);
+    //         }
+    //       }
+    //     },
+    //     icon: const Icon(Icons.refresh));
 
-          final lifetime =
-              ref.watch(lifetimeProvider.select((value) => value.lifetime));
-
-          if (lifetime != null) {
-            final hourDataList = [
-              lifetime.hour00,
-              lifetime.hour01,
-              lifetime.hour02,
-              lifetime.hour03,
-              lifetime.hour04,
-              lifetime.hour05,
-              lifetime.hour06,
-              lifetime.hour07,
-              lifetime.hour08,
-              lifetime.hour09,
-              lifetime.hour10,
-              lifetime.hour11,
-              lifetime.hour12,
-              lifetime.hour13,
-              lifetime.hour14,
-              lifetime.hour15,
-              lifetime.hour16,
-              lifetime.hour17,
-              lifetime.hour18,
-              lifetime.hour19,
-              lifetime.hour20,
-              lifetime.hour21,
-              lifetime.hour22,
-              lifetime.hour23
-            ];
-
-            for (var i = 0; i < hourDataList.length; i++) {
-              tecs[i].text = hourDataList[i];
-
-              ref
-                  .read(lifetimeProvider.notifier)
-                  .setLifetimeStringList(pos: i, item: hourDataList[i]);
-            }
-          }
-        },
-        icon: const Icon(Icons.refresh));
+    return Container();
   }
 }

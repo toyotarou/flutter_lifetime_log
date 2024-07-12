@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lifetime_log/data/http/client.dart';
 import 'package:lifetime_log/data/http/path.dart';
@@ -42,10 +44,8 @@ class Lifetime extends _$Lifetime {
     await client.post(path: APIPath.getLifetimeRecordItem).then((value) {
       final list = <LifetimeItemModel>[];
 
-      // ignore: avoid_dynamic_calls
       for (var i = 0; i < value['data'].length.toString().toInt(); i++) {
         final val = LifetimeItemModel.fromJson(
-          // ignore: avoid_dynamic_calls
           value['data'][i] as Map<String, dynamic>,
         );
 
@@ -66,10 +66,8 @@ class Lifetime extends _$Lifetime {
       final list = <LifetimeModel>[];
       final map = <String, LifetimeModel>{};
 
-      // ignore: avoid_dynamic_calls
       for (var i = 0; i < value['data'].length.toString().toInt(); i++) {
         final model = LifetimeModel.fromJson(
-          // ignore: avoid_dynamic_calls
           value['data'][i] as Map<String, dynamic>,
         );
 
@@ -78,30 +76,6 @@ class Lifetime extends _$Lifetime {
       }
 
       state = state.copyWith(lifetimeList: list, lifetimeMap: map);
-    }).catchError((error, _) {
-      utility.showError('予期せぬエラーが発生しました');
-    });
-  }
-
-  ///
-  Future<void> getDailyLifetime({required DateTime date}) async {
-    final client = ref.read(httpClientProvider);
-
-    await client.post(
-      path: APIPath.getLifetimeDateRecord,
-      body: {'date': date.yyyymmdd},
-    ).then((value) {
-      // ignore: avoid_dynamic_calls
-      if (value['data'] == null) {
-        state = state.copyWith(lifetime: null);
-      } else {
-        final model = LifetimeModel.fromJson(
-          // ignore: avoid_dynamic_calls
-          value['data'] as Map<String, dynamic>,
-        );
-
-        state = state.copyWith(lifetime: model);
-      }
     }).catchError((error, _) {
       utility.showError('予期せぬエラーが発生しました');
     });
@@ -136,4 +110,64 @@ class Lifetime extends _$Lifetime {
       utility.showError('予期せぬエラーが発生しました');
     });
   }
+}
+
+//------------------------------------------------------------------//
+
+@riverpod
+Future<LifetimeState> dateLifetime(
+  DateLifetimeRef ref, {
+  required String date,
+}) async {
+  final utility = Utility();
+
+  var lifetimeModel = LifetimeModel(
+    id: 0,
+    year: '',
+    month: '',
+    day: '',
+    hour00: '',
+    hour01: '',
+    hour02: '',
+    hour03: '',
+    hour04: '',
+    hour05: '',
+    hour06: '',
+    hour07: '',
+    hour08: '',
+    hour09: '',
+    hour10: '',
+    hour11: '',
+    hour12: '',
+    hour13: '',
+    hour14: '',
+    hour15: '',
+    hour16: '',
+    hour17: '',
+    hour18: '',
+    hour19: '',
+    hour20: '',
+    hour21: '',
+    hour22: '',
+    hour23: '',
+  );
+
+  final client = ref.read(httpClientProvider);
+
+  await client.post(
+    path: APIPath.getLifetimeDateRecord,
+    body: {'date': date},
+  ).then((value) {
+    if (value['data'] != null) {
+      final model = LifetimeModel.fromJson(
+        value['data'] as Map<String, dynamic>,
+      );
+
+      lifetimeModel = model;
+    }
+  }).catchError((error, _) {
+    utility.showError('予期せぬエラーが発生しました');
+  });
+
+  return Future.value(LifetimeState(lifetime: lifetimeModel));
 }
