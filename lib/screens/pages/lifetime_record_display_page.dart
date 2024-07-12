@@ -9,6 +9,7 @@ import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
 import 'package:lifetime_log/screens/parts/lifetime_display_parts.dart';
 import 'package:lifetime_log/state/app_param/app_param.dart';
 import 'package:lifetime_log/state/lifetime/lifetime.dart';
+import 'package:lifetime_log/state/spend_time_place/spend_time_place.dart';
 
 class LifetimeRecordDisplayPage extends ConsumerWidget {
   LifetimeRecordDisplayPage({super.key, required this.date});
@@ -115,7 +116,38 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
 
   ///
   Widget _displayTimeplace() {
-    return Container();
+    final list = <Widget>[];
+
+    final dateSpendTimePlace = _ref.watch(
+        dateSpendTimePlaceProvider(date: date.yyyymmdd)
+            .select((value) => value.value));
+
+    if (dateSpendTimePlace != null) {
+      dateSpendTimePlace.spendTimePlaceList.forEach((element) {
+        list.add(Container(
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.white.withOpacity(0.3),
+              ),
+            ),
+          ),
+          child: Row(
+            children: [
+              SizedBox(width: 60, child: Text(element.time)),
+              Expanded(child: Text(element.place)),
+              Container(
+                  alignment: Alignment.topRight,
+                  width: 40,
+                  child: Text(element.price.toString().toCurrency())),
+            ],
+          ),
+        ));
+      });
+    }
+
+    return SingleChildScrollView(child: Column(children: list));
   }
 
   ///
