@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'spend_time_place.dart';
+part of 'money.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dateSpendTimePlaceHash() =>
-    r'aba37c105a54551339fd749d41041b7a729b9e33';
+String _$dateMoneyHash() => r'458051d5d884435961f9aac63da430377987a2d5';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,27 +29,27 @@ class _SystemHash {
   }
 }
 
-/// See also [dateSpendTimePlace].
-@ProviderFor(dateSpendTimePlace)
-const dateSpendTimePlaceProvider = DateSpendTimePlaceFamily();
+/// See also [dateMoney].
+@ProviderFor(dateMoney)
+const dateMoneyProvider = DateMoneyFamily();
 
-/// See also [dateSpendTimePlace].
-class DateSpendTimePlaceFamily extends Family<AsyncValue<SpendTimePlaceState>> {
-  /// See also [dateSpendTimePlace].
-  const DateSpendTimePlaceFamily();
+/// See also [dateMoney].
+class DateMoneyFamily extends Family<AsyncValue<MoneyState>> {
+  /// See also [dateMoney].
+  const DateMoneyFamily();
 
-  /// See also [dateSpendTimePlace].
-  DateSpendTimePlaceProvider call({
+  /// See also [dateMoney].
+  DateMoneyProvider call({
     required String date,
   }) {
-    return DateSpendTimePlaceProvider(
+    return DateMoneyProvider(
       date: date,
     );
   }
 
   @override
-  DateSpendTimePlaceProvider getProviderOverride(
-    covariant DateSpendTimePlaceProvider provider,
+  DateMoneyProvider getProviderOverride(
+    covariant DateMoneyProvider provider,
   ) {
     return call(
       date: provider.date,
@@ -69,33 +68,31 @@ class DateSpendTimePlaceFamily extends Family<AsyncValue<SpendTimePlaceState>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'dateSpendTimePlaceProvider';
+  String? get name => r'dateMoneyProvider';
 }
 
-/// See also [dateSpendTimePlace].
-class DateSpendTimePlaceProvider
-    extends AutoDisposeFutureProvider<SpendTimePlaceState> {
-  /// See also [dateSpendTimePlace].
-  DateSpendTimePlaceProvider({
+/// See also [dateMoney].
+class DateMoneyProvider extends AutoDisposeFutureProvider<MoneyState> {
+  /// See also [dateMoney].
+  DateMoneyProvider({
     required String date,
   }) : this._internal(
-          (ref) => dateSpendTimePlace(
-            ref as DateSpendTimePlaceRef,
+          (ref) => dateMoney(
+            ref as DateMoneyRef,
             date: date,
           ),
-          from: dateSpendTimePlaceProvider,
-          name: r'dateSpendTimePlaceProvider',
+          from: dateMoneyProvider,
+          name: r'dateMoneyProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$dateSpendTimePlaceHash,
-          dependencies: DateSpendTimePlaceFamily._dependencies,
-          allTransitiveDependencies:
-              DateSpendTimePlaceFamily._allTransitiveDependencies,
+                  : _$dateMoneyHash,
+          dependencies: DateMoneyFamily._dependencies,
+          allTransitiveDependencies: DateMoneyFamily._allTransitiveDependencies,
           date: date,
         );
 
-  DateSpendTimePlaceProvider._internal(
+  DateMoneyProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -109,13 +106,12 @@ class DateSpendTimePlaceProvider
 
   @override
   Override overrideWith(
-    FutureOr<SpendTimePlaceState> Function(DateSpendTimePlaceRef provider)
-        create,
+    FutureOr<MoneyState> Function(DateMoneyRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: DateSpendTimePlaceProvider._internal(
-        (ref) => create(ref as DateSpendTimePlaceRef),
+      override: DateMoneyProvider._internal(
+        (ref) => create(ref as DateMoneyRef),
         from: from,
         name: null,
         dependencies: null,
@@ -127,13 +123,13 @@ class DateSpendTimePlaceProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<SpendTimePlaceState> createElement() {
-    return _DateSpendTimePlaceProviderElement(this);
+  AutoDisposeFutureProviderElement<MoneyState> createElement() {
+    return _DateMoneyProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is DateSpendTimePlaceProvider && other.date == date;
+    return other is DateMoneyProvider && other.date == date;
   }
 
   @override
@@ -145,19 +141,17 @@ class DateSpendTimePlaceProvider
   }
 }
 
-mixin DateSpendTimePlaceRef
-    on AutoDisposeFutureProviderRef<SpendTimePlaceState> {
+mixin DateMoneyRef on AutoDisposeFutureProviderRef<MoneyState> {
   /// The parameter `date` of this provider.
   String get date;
 }
 
-class _DateSpendTimePlaceProviderElement
-    extends AutoDisposeFutureProviderElement<SpendTimePlaceState>
-    with DateSpendTimePlaceRef {
-  _DateSpendTimePlaceProviderElement(super.provider);
+class _DateMoneyProviderElement
+    extends AutoDisposeFutureProviderElement<MoneyState> with DateMoneyRef {
+  _DateMoneyProviderElement(super.provider);
 
   @override
-  String get date => (origin as DateSpendTimePlaceProvider).date;
+  String get date => (origin as DateMoneyProvider).date;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -9,6 +9,7 @@ import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
 import 'package:lifetime_log/screens/parts/lifetime_display_parts.dart';
 import 'package:lifetime_log/state/app_param/app_param.dart';
 import 'package:lifetime_log/state/lifetime/lifetime.dart';
+import 'package:lifetime_log/state/money/money.dart';
 import 'package:lifetime_log/state/spend_time_place/spend_time_place.dart';
 
 class LifetimeRecordDisplayPage extends ConsumerWidget {
@@ -89,6 +90,11 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
             child: Column(
               children: [
                 Container(
+                  height: 80,
+                  padding: const EdgeInsets.all(5),
+                  child: _displayMoney(),
+                ),
+                Container(
                   height: 200,
                   padding: const EdgeInsets.all(5),
                   child: _displayTimeplace(),
@@ -97,6 +103,82 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
             )),
       ],
     );
+  }
+
+  ///
+  Widget _displayMoney() {
+    final dateMoney = _ref.watch(
+        dateMoneyProvider(date: date.yyyymmdd).select((value) => value.value));
+
+    final yesterdayMoney = _ref.watch(
+        dateMoneyProvider(date: date.add(const Duration(days: -1)).yyyymmdd)
+            .select((value) => value.value));
+
+    if (dateMoney != null && yesterdayMoney != null) {
+      if (dateMoney.money != null && yesterdayMoney.money != null) {
+        final diff =
+            yesterdayMoney.money!.sum.toInt() - dateMoney.money!.sum.toInt();
+
+        return SingleChildScrollView(
+            child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.white.withOpacity(0.3),
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('start'),
+                  Text(yesterdayMoney.money!.sum.toCurrency()),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.white.withOpacity(0.3),
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('spend'),
+                  Text(diff.toString().toCurrency()),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.white.withOpacity(0.3),
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('end'),
+                  Text(dateMoney.money!.sum.toCurrency()),
+                ],
+              ),
+            ),
+          ],
+        ));
+      }
+    }
+
+    return Container();
   }
 
   ///
