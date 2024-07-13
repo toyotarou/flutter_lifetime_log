@@ -176,17 +176,13 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
                       .setSelectedYearlyCalendarDate(
                         date: DateTime.parse(
                                 '$selectedYearlyCalendarDate 00:00:00')
-                            .add(
-                          const Duration(days: -7),
-                        ),
+                            .add(const Duration(days: -7)),
                       );
 
                   if (_context.mounted) {
-                    // ignore: use_build_context_synchronously
                     Navigator.pop(_context);
 
                     await LifetimeDialog(
-                      // ignore: use_build_context_synchronously
                       context: _context,
                       widget: LifetimeRecordDisplayAlert(
                         date: DateTime.parse(
@@ -216,17 +212,13 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
                       .setSelectedYearlyCalendarDate(
                         date: DateTime.parse(
                                 '$selectedYearlyCalendarDate 00:00:00')
-                            .add(
-                          const Duration(days: 7),
-                        ),
+                            .add(const Duration(days: 7)),
                       );
 
                   if (_context.mounted) {
-                    // ignore: use_build_context_synchronously
                     Navigator.pop(_context);
 
                     await LifetimeDialog(
-                      // ignore: use_build_context_synchronously
                       context: _context,
                       widget: LifetimeRecordDisplayAlert(
                         date: DateTime.parse(
