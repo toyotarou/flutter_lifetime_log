@@ -12,6 +12,7 @@ enum APIPath {
   getsalary,
   getmonthlytimeplace,
   moneydl,
+  getWalkRecord2,
 }
 
 extension APIPathExtension on APIPath {
@@ -45,6 +46,8 @@ extension APIPathExtension on APIPath {
         return 'getmonthlytimeplace';
       case APIPath.moneydl:
         return 'moneydl';
+      case APIPath.getWalkRecord2:
+        return 'getWalkRecord2';
     }
   }
 }

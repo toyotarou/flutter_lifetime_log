@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'money.dart';
+part of 'walk.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dateMoneyHash() => r'3e253ba05dddee285567b7e6f4ead6be8474d09f';
+String _$dateWalkHash() => r'0875c173f66e74817a86eb5cfdddd507033b162f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +29,27 @@ class _SystemHash {
   }
 }
 
-/// See also [dateMoney].
-@ProviderFor(dateMoney)
-const dateMoneyProvider = DateMoneyFamily();
+/// See also [dateWalk].
+@ProviderFor(dateWalk)
+const dateWalkProvider = DateWalkFamily();
 
-/// See also [dateMoney].
-class DateMoneyFamily extends Family<AsyncValue<MoneyState>> {
-  /// See also [dateMoney].
-  const DateMoneyFamily();
+/// See also [dateWalk].
+class DateWalkFamily extends Family<AsyncValue<WalkState>> {
+  /// See also [dateWalk].
+  const DateWalkFamily();
 
-  /// See also [dateMoney].
-  DateMoneyProvider call({
+  /// See also [dateWalk].
+  DateWalkProvider call({
     required String date,
   }) {
-    return DateMoneyProvider(
+    return DateWalkProvider(
       date: date,
     );
   }
 
   @override
-  DateMoneyProvider getProviderOverride(
-    covariant DateMoneyProvider provider,
+  DateWalkProvider getProviderOverride(
+    covariant DateWalkProvider provider,
   ) {
     return call(
       date: provider.date,
@@ -68,31 +68,31 @@ class DateMoneyFamily extends Family<AsyncValue<MoneyState>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'dateMoneyProvider';
+  String? get name => r'dateWalkProvider';
 }
 
-/// See also [dateMoney].
-class DateMoneyProvider extends AutoDisposeFutureProvider<MoneyState> {
-  /// See also [dateMoney].
-  DateMoneyProvider({
+/// See also [dateWalk].
+class DateWalkProvider extends AutoDisposeFutureProvider<WalkState> {
+  /// See also [dateWalk].
+  DateWalkProvider({
     required String date,
   }) : this._internal(
-          (ref) => dateMoney(
-            ref as DateMoneyRef,
+          (ref) => dateWalk(
+            ref as DateWalkRef,
             date: date,
           ),
-          from: dateMoneyProvider,
-          name: r'dateMoneyProvider',
+          from: dateWalkProvider,
+          name: r'dateWalkProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$dateMoneyHash,
-          dependencies: DateMoneyFamily._dependencies,
-          allTransitiveDependencies: DateMoneyFamily._allTransitiveDependencies,
+                  : _$dateWalkHash,
+          dependencies: DateWalkFamily._dependencies,
+          allTransitiveDependencies: DateWalkFamily._allTransitiveDependencies,
           date: date,
         );
 
-  DateMoneyProvider._internal(
+  DateWalkProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -106,12 +106,12 @@ class DateMoneyProvider extends AutoDisposeFutureProvider<MoneyState> {
 
   @override
   Override overrideWith(
-    FutureOr<MoneyState> Function(DateMoneyRef provider) create,
+    FutureOr<WalkState> Function(DateWalkRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: DateMoneyProvider._internal(
-        (ref) => create(ref as DateMoneyRef),
+      override: DateWalkProvider._internal(
+        (ref) => create(ref as DateWalkRef),
         from: from,
         name: null,
         dependencies: null,
@@ -123,13 +123,13 @@ class DateMoneyProvider extends AutoDisposeFutureProvider<MoneyState> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<MoneyState> createElement() {
-    return _DateMoneyProviderElement(this);
+  AutoDisposeFutureProviderElement<WalkState> createElement() {
+    return _DateWalkProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is DateMoneyProvider && other.date == date;
+    return other is DateWalkProvider && other.date == date;
   }
 
   @override
@@ -141,17 +141,17 @@ class DateMoneyProvider extends AutoDisposeFutureProvider<MoneyState> {
   }
 }
 
-mixin DateMoneyRef on AutoDisposeFutureProviderRef<MoneyState> {
+mixin DateWalkRef on AutoDisposeFutureProviderRef<WalkState> {
   /// The parameter `date` of this provider.
   String get date;
 }
 
-class _DateMoneyProviderElement
-    extends AutoDisposeFutureProviderElement<MoneyState> with DateMoneyRef {
-  _DateMoneyProviderElement(super.provider);
+class _DateWalkProviderElement
+    extends AutoDisposeFutureProviderElement<WalkState> with DateWalkRef {
+  _DateWalkProviderElement(super.provider);
 
   @override
-  String get date => (origin as DateMoneyProvider).date;
+  String get date => (origin as DateWalkProvider).date;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

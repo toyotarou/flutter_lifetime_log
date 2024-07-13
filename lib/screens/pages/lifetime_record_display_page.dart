@@ -11,6 +11,7 @@ import 'package:lifetime_log/state/app_param/app_param.dart';
 import 'package:lifetime_log/state/lifetime/lifetime.dart';
 import 'package:lifetime_log/state/money/money.dart';
 import 'package:lifetime_log/state/spend_time_place/spend_time_place.dart';
+import 'package:lifetime_log/state/walk/walk.dart';
 
 class LifetimeRecordDisplayPage extends ConsumerWidget {
   LifetimeRecordDisplayPage({super.key, required this.date});
@@ -84,7 +85,17 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(child: _displayLifetimeRecord()),
+        Expanded(
+          child: Column(
+            children: [
+              SizedBox(
+                height: _context.screenSize.height * 0.5,
+                child: _displayLifetimeRecord(),
+              ),
+              _displayWalkRecord(),
+            ],
+          ),
+        ),
         Expanded(
             flex: 2,
             child: Column(
@@ -103,6 +114,71 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
             )),
       ],
     );
+  }
+
+  ///
+  Widget _displayWalkRecord() {
+    final dateWalk = _ref.watch(
+        dateWalkProvider(date: date.yyyymmdd).select((value) => value.value));
+
+    if (dateWalk != null) {
+      if (dateWalk.walk != null) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.white.withOpacity(0.3),
+                    ),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Steps'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(),
+                        Text(dateWalk.walk!.step.toString().toCurrency()),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.white.withOpacity(0.3),
+                    ),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Distance'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(),
+                        Text(dateWalk.walk!.distance.toString().toCurrency()),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
+    return Container();
   }
 
   ///
