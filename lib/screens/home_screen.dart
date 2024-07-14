@@ -73,27 +73,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            ref
-                                .read(appParamProvider.notifier)
-                                .setHomeGenbaNameDisplay(
-                                    flag: !homeGenbaNameDisplay);
-                          },
-                          icon: const Icon(Icons.check_box_outline_blank),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            LifetimeDialog(
-                              context: context,
-                              widget: const YearlyCalendarAlert(),
-                            );
-                          },
-                          icon: const Icon(Icons.calendar_month),
-                        ),
-                      ],
+                    IconButton(
+                      onPressed: () {
+                        LifetimeDialog(
+                          context: context,
+                          widget: const YearlyCalendarAlert(),
+                        );
+                      },
+                      icon: const Icon(Icons.calendar_month),
                     ),
                   ],
                 ),
@@ -102,6 +89,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 Expanded(
                   child: displayWorkTimeRecord(),
                 ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(),
+                    IconButton(
+                      onPressed: () {
+                        ref
+                            .read(appParamProvider.notifier)
+                            .setHomeGenbaNameDisplay(
+                                flag: !homeGenbaNameDisplay);
+                      },
+                      icon: const Icon(Icons.check_box_outline_blank),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
               ],
             ),
           ],
