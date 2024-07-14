@@ -96,6 +96,10 @@ class _LifetimeRecordInputAlertState
                                 .read(lifetimeProvider.notifier)
                                 .inputLifetime(date: widget.date);
 
+                            /// invalidateすることで表示内容が変更される
+                            ref.invalidate(dateLifetimeProvider(
+                                date: widget.date.yyyymmdd));
+
                             Navigator.pop(context);
                           } else {
                             await ref
@@ -144,7 +148,7 @@ class _LifetimeRecordInputAlertState
               SizedBox(
                 width: 40,
                 child: ChoiceChip(
-                  label: Text(i.toString()),
+                  label: Text(i.toString().padLeft(2, '0')),
                   backgroundColor: Colors.black.withOpacity(0.4),
                   selectedColor: Colors.yellowAccent.withOpacity(0.4),
                   selected: i == itemPos,

@@ -1,10 +1,11 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifetime_log/extensions/extensions.dart';
 import 'package:lifetime_log/screens/components/lifetime_record_display_alert.dart';
 import 'package:lifetime_log/screens/components/lifetime_record_input_alert.dart';
+import 'package:lifetime_log/screens/components/walk_record_input_alert.dart';
 import 'package:lifetime_log/screens/parts/_lifetime_dialog.dart';
 import 'package:lifetime_log/screens/parts/lifetime_display_parts.dart';
 import 'package:lifetime_log/state/app_param/app_param.dart';
@@ -50,17 +51,7 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
                     children: [
                       Text(
                           '${date.yyyymmdd}（${date.youbiStr.substring(0, 3)}）'),
-                      IconButton(
-                        onPressed: () {
-                          LifetimeDialog(
-                            context: context,
-                            widget: LifetimeRecordInputAlert(date: date),
-                            clearBarrierColor: true,
-                          );
-                        },
-                        icon: Icon(Icons.input,
-                            color: Colors.white.withOpacity(0.6)),
-                      ),
+                      Container(),
                     ],
                   ),
                   Expanded(child: _displayLifetime()),
@@ -89,7 +80,7 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
           child: Column(
             children: [
               SizedBox(
-                height: _context.screenSize.height * 0.5,
+                height: _context.screenSize.height * 0.55,
                 child: _displayLifetimeRecord(),
               ),
               _displayWalkRecord(),
@@ -118,6 +109,28 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
 
   ///
   Widget _displayWalkRecord() {
+    final walkRecordInputButton = Column(
+      children: [
+        const SizedBox(height: 5),
+        GestureDetector(
+          onTap: () {
+            LifetimeDialog(
+              context: _context,
+              widget: WalkRecordInputAlert(date: date),
+              paddingTop: _context.screenSize.height * 0.6,
+              paddingLeft: _context.screenSize.width * 0.2,
+              clearBarrierColor: true,
+            );
+          },
+          child: Icon(
+            Icons.input,
+            color: Colors.white.withOpacity(0.6),
+          ),
+        ),
+        const SizedBox(height: 5),
+      ],
+    );
+
     final dateWalk = _ref.watch(
         dateWalkProvider(date: date.yyyymmdd).select((value) => value.value));
 
@@ -125,6 +138,7 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
       if (dateWalk.walk != null) {
         return SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 padding: const EdgeInsets.all(3),
@@ -172,6 +186,7 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
                   ],
                 ),
               ),
+              walkRecordInputButton,
             ],
           ),
         );
@@ -259,17 +274,45 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
 
   ///
   Widget _displayLifetimeRecord() {
+    final lifetimeInputButton = Column(
+      children: [
+        const SizedBox(height: 5),
+        GestureDetector(
+          onTap: () async {
+            await _ref.read(lifetimeProvider.notifier).setItemPos(pos: -1);
+
+            await LifetimeDialog(
+              context: _context,
+              widget: LifetimeRecordInputAlert(date: date),
+              clearBarrierColor: true,
+            );
+          },
+          child: Icon(
+            Icons.input,
+            color: Colors.white.withOpacity(0.6),
+          ),
+        ),
+        const SizedBox(height: 5),
+      ],
+    );
+
     final dateLifetime = _ref.watch(dateLifetimeProvider(date: date.yyyymmdd)
         .select((value) => value.value));
 
     if (dateLifetime != null) {
       if (dateLifetime.lifetime != null) {
-        return LifetimeDisplayParts(
-            lifetime: dateLifetime.lifetime, textDisplay: true);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            lifetimeInputButton,
+            LifetimeDisplayParts(
+                lifetime: dateLifetime.lifetime, textDisplay: true),
+          ],
+        );
       }
     }
 
-    return Container();
+    return Container(child: lifetimeInputButton);
   }
 
   ///
@@ -348,6 +391,7 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
                             .add(const Duration(days: -7)),
                         beforeNextPageIndex: 6,
                       ),
+                      clearBarrierColor: true,
                     );
                   }
                 },
@@ -384,6 +428,7 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
                             .add(const Duration(days: 7)),
                         beforeNextPageIndex: 0,
                       ),
+                      clearBarrierColor: true,
                     );
                   }
                 },
