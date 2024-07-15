@@ -6,7 +6,7 @@ part of 'walk.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dateWalkHash() => r'0875c173f66e74817a86eb5cfdddd507033b162f';
+String _$dateWalkHash() => r'12f0aeec23bd6f8c7248027e2b7d22eeff6a819e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -153,5 +153,20 @@ class _DateWalkProviderElement
   @override
   String get date => (origin as DateWalkProvider).date;
 }
+
+String _$walkHash() => r'34a417e18340857aa0717471b622a321e2700cae';
+
+/// See also [Walk].
+@ProviderFor(Walk)
+final walkProvider = AutoDisposeNotifierProvider<Walk, WalkState>.internal(
+  Walk.new,
+  name: r'walkProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$walkHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$Walk = AutoDisposeNotifier<WalkState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -18,6 +18,39 @@ class WalkState with _$WalkState {
 }
 
 @riverpod
+class Walk extends _$Walk {
+  final utility = Utility();
+
+  ///
+  @override
+  WalkState build() {
+    return const WalkState();
+  }
+
+  ///
+  Future<void> inputWalkRecord(
+      {required DateTime date,
+      required String steps,
+      required String distance}) async {
+    final client = ref.read(httpClientProvider);
+
+    final uploadData = <String, dynamic>{};
+    uploadData['date'] = date.yyyymmdd;
+    uploadData['step'] = steps;
+    uploadData['distance'] = distance;
+
+    await client
+        .post(path: APIPath.insertWalkRecord, body: uploadData)
+        .then((value) {})
+        .catchError((error, _) {
+      utility.showError('予期せぬエラーが発生しました');
+    });
+  }
+}
+
+//------------------------------------------------------------------//
+
+@riverpod
 Future<WalkState> dateWalk(
   DateWalkRef ref, {
   required String date,
