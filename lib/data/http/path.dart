@@ -14,6 +14,7 @@ enum APIPath {
   moneydl,
   getWalkRecord2,
   insertWalkRecord,
+  getmonthSpendItem,
 }
 
 extension APIPathExtension on APIPath {
@@ -51,6 +52,8 @@ extension APIPathExtension on APIPath {
         return 'getWalkRecord2';
       case APIPath.insertWalkRecord:
         return 'insertWalkRecord';
+      case APIPath.getmonthSpendItem:
+        return 'getmonthSpendItem';
     }
   }
 }

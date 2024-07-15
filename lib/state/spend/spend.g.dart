@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'walk.dart';
+part of 'spend.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dateWalkHash() => r'12f0aeec23bd6f8c7248027e2b7d22eeff6a819e';
+String _$dateSpendHash() => r'ad28d98d65a181c9d79a8b6cc1e28056cb6daab2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +29,27 @@ class _SystemHash {
   }
 }
 
-/// See also [dateWalk].
-@ProviderFor(dateWalk)
-const dateWalkProvider = DateWalkFamily();
+/// See also [dateSpend].
+@ProviderFor(dateSpend)
+const dateSpendProvider = DateSpendFamily();
 
-/// See also [dateWalk].
-class DateWalkFamily extends Family<AsyncValue<WalkState>> {
-  /// See also [dateWalk].
-  const DateWalkFamily();
+/// See also [dateSpend].
+class DateSpendFamily extends Family<AsyncValue<SpendState>> {
+  /// See also [dateSpend].
+  const DateSpendFamily();
 
-  /// See also [dateWalk].
-  DateWalkProvider call({
+  /// See also [dateSpend].
+  DateSpendProvider call({
     required String date,
   }) {
-    return DateWalkProvider(
+    return DateSpendProvider(
       date: date,
     );
   }
 
   @override
-  DateWalkProvider getProviderOverride(
-    covariant DateWalkProvider provider,
+  DateSpendProvider getProviderOverride(
+    covariant DateSpendProvider provider,
   ) {
     return call(
       date: provider.date,
@@ -68,31 +68,31 @@ class DateWalkFamily extends Family<AsyncValue<WalkState>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'dateWalkProvider';
+  String? get name => r'dateSpendProvider';
 }
 
-/// See also [dateWalk].
-class DateWalkProvider extends AutoDisposeFutureProvider<WalkState> {
-  /// See also [dateWalk].
-  DateWalkProvider({
+/// See also [dateSpend].
+class DateSpendProvider extends AutoDisposeFutureProvider<SpendState> {
+  /// See also [dateSpend].
+  DateSpendProvider({
     required String date,
   }) : this._internal(
-          (ref) => dateWalk(
-            ref as DateWalkRef,
+          (ref) => dateSpend(
+            ref as DateSpendRef,
             date: date,
           ),
-          from: dateWalkProvider,
-          name: r'dateWalkProvider',
+          from: dateSpendProvider,
+          name: r'dateSpendProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$dateWalkHash,
-          dependencies: DateWalkFamily._dependencies,
-          allTransitiveDependencies: DateWalkFamily._allTransitiveDependencies,
+                  : _$dateSpendHash,
+          dependencies: DateSpendFamily._dependencies,
+          allTransitiveDependencies: DateSpendFamily._allTransitiveDependencies,
           date: date,
         );
 
-  DateWalkProvider._internal(
+  DateSpendProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -106,12 +106,12 @@ class DateWalkProvider extends AutoDisposeFutureProvider<WalkState> {
 
   @override
   Override overrideWith(
-    FutureOr<WalkState> Function(DateWalkRef provider) create,
+    FutureOr<SpendState> Function(DateSpendRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: DateWalkProvider._internal(
-        (ref) => create(ref as DateWalkRef),
+      override: DateSpendProvider._internal(
+        (ref) => create(ref as DateSpendRef),
         from: from,
         name: null,
         dependencies: null,
@@ -123,13 +123,13 @@ class DateWalkProvider extends AutoDisposeFutureProvider<WalkState> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<WalkState> createElement() {
-    return _DateWalkProviderElement(this);
+  AutoDisposeFutureProviderElement<SpendState> createElement() {
+    return _DateSpendProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is DateWalkProvider && other.date == date;
+    return other is DateSpendProvider && other.date == date;
   }
 
   @override
@@ -141,32 +141,17 @@ class DateWalkProvider extends AutoDisposeFutureProvider<WalkState> {
   }
 }
 
-mixin DateWalkRef on AutoDisposeFutureProviderRef<WalkState> {
+mixin DateSpendRef on AutoDisposeFutureProviderRef<SpendState> {
   /// The parameter `date` of this provider.
   String get date;
 }
 
-class _DateWalkProviderElement
-    extends AutoDisposeFutureProviderElement<WalkState> with DateWalkRef {
-  _DateWalkProviderElement(super.provider);
+class _DateSpendProviderElement
+    extends AutoDisposeFutureProviderElement<SpendState> with DateSpendRef {
+  _DateSpendProviderElement(super.provider);
 
   @override
-  String get date => (origin as DateWalkProvider).date;
+  String get date => (origin as DateSpendProvider).date;
 }
-
-String _$walkHash() => r'1760e80ae8e17ff3c1ff8d9a9872d1fee2a86b30';
-
-/// See also [Walk].
-@ProviderFor(Walk)
-final walkProvider = AutoDisposeNotifierProvider<Walk, WalkState>.internal(
-  Walk.new,
-  name: r'walkProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$walkHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$Walk = AutoDisposeNotifier<WalkState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

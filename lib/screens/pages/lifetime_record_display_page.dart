@@ -11,6 +11,7 @@ import 'package:lifetime_log/screens/parts/lifetime_display_parts.dart';
 import 'package:lifetime_log/state/app_param/app_param.dart';
 import 'package:lifetime_log/state/lifetime/lifetime.dart';
 import 'package:lifetime_log/state/money/money.dart';
+import 'package:lifetime_log/state/spend/spend.dart';
 import 'package:lifetime_log/state/spend_time_place/spend_time_place.dart';
 import 'package:lifetime_log/state/walk/walk.dart';
 
@@ -87,6 +88,7 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
             ],
           ),
         ),
+        const SizedBox(width: 10),
         Expanded(
             flex: 2,
             child: Column(
@@ -96,6 +98,13 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
                   padding: const EdgeInsets.all(5),
                   child: _displayMoney(),
                 ),
+                Divider(color: Colors.white.withOpacity(0.2), thickness: 5),
+                Container(
+                  height: 150,
+                  padding: const EdgeInsets.all(5),
+                  child: _displayDateSpend(),
+                ),
+                Divider(color: Colors.white.withOpacity(0.2), thickness: 5),
                 Container(
                   height: 200,
                   padding: const EdgeInsets.all(5),
@@ -440,5 +449,37 @@ class LifetimeRecordDisplayPage extends ConsumerWidget {
         ],
       ],
     );
+  }
+
+  ///
+  Widget _displayDateSpend() {
+    final list = <Widget>[];
+
+    final dateSpend = _ref.watch(
+        dateSpendProvider(date: date.yyyymmdd).select((value) => value.value));
+
+    if (dateSpend != null) {
+      dateSpend.spendList.forEach((element) {
+        list.add(Container(
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.white.withOpacity(0.3),
+              ),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(element['item']),
+              Text(element['price'].toString().toCurrency()),
+            ],
+          ),
+        ));
+      });
+    }
+
+    return SingleChildScrollView(child: Column(children: list));
   }
 }
